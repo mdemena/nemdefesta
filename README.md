@@ -1,27 +1,33 @@
 # Nem De Festa!!!
+
 # Developers: 
-Marc De Mena 
+[Marc De Mena] (@mdemena)
+
 # Link to App: 
-https://escape-rooms-fm.herokuapp.com/auth/login
+https://www.nemdefesta.cat
 
 
 ## Description
 
-An app where users create Escape room sessions.
+An app where users can enjoy experience in local events/parties in catalonia, in my first iteration of this application.
  
 ## User Stories
 
-- **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault 
-- **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault
-- **homepage** - As a user I want to be able to access the homepage so that I see what the app is about and login and signup
-- **sign up** - As a user I want to sign up on the webpage so that I can see all the events that I could attend
-- **login** - As a user I want to be able to log in on the webpage so that I can get back to my account
-- **logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
-- **events list** - As a user I want to see all escape-rooms event available so that I can choose which ones I want to do.
-- **events create** - As a user I want I want create a new escape-room event.
-- **event details** - As a user I want to see the event detail and so that I can decide if I want to join it.
-- **event attend** - As a user I want to be able to attend to event so that the organizers can count me in.
-- **escape-rooms list** - As a user I want to see which escape-rooms are available so I can explore them.
+- **404** - As a user I want to see a nice 404 page when I go to a page that doesn’t exist so that I know it was my fault.
+- **500** - As a user I want to see a nice error page when the super team screws it up so that I know that is not my fault.
+- **homepage** - As a user I want to be able to know and search local partys around me or a location of my election.
+- **event detail** - As a user I want to see the event detail and so that I can decide if I want assist to it, like, comments, etc..
+- **event add comments** - As a user I want to put comments of the event, we need be loggedin.
+- **event add images** - As a user I want to upload images of the event, we need be loggedin.
+- **activity detail** - As a user I want to see the event activity to event and so that I can decide if I want assist to it, like, comment, etc..
+- **activity add comments** - As a user I want to put comments of the event activity, we need be loggedin.
+- **activity add images** - As a user I want to upload images of the event activity, we need be loggedin.
+- **sign up** - As a user I want to sign up on the applicaction so that I can see all information refer to me and events that I could attend, etc..
+- **login** - As a user I want to be able to log in on the application so that I can get back to my account.
+- **logout** - As a user I want to be able to log out from the application so that I can make sure no one will access my account.
+- **profile** - As a user I want I want view and update all information refered to me. Can upload an avatar, view my interactions (Comments, Assitance, etc..)
+- **event create** - As a user I want I want create a new local event/party.
+- **activity create** - As a user I want I want create a new activity in a local event/party.
 
 ## Backlog
 
