@@ -4,6 +4,7 @@
 	left: 0;
 	width: 100%;
 	overflow: hidden;
+	padding-top: 70px;
 }
 @media (prefers-reduced-motion: no-preference) {
 	.App-logo {
