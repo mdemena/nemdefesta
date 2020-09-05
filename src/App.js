@@ -9,7 +9,7 @@ import Home from './components/Home';
 import Login from './components/auth/login/Login';
 import Signup from './components/auth/signup/Signup';
 import Profile from './components/auth/profile/Profile';
-import './App.css';
+import './App.scss';
 
 require('dotenv').config();
 
@@ -18,7 +18,7 @@ function App() {
 	const getTheUser = (user) => {
 		setUser(user);
 	};
-	console.log(user);
+
 	return (
 		<Container className="fill-window">
 			<MenuSuperior />

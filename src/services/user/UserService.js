@@ -11,16 +11,16 @@ export class UserService {
 
 	save = (username, name, email) => {
 		return this.service
-			.put('user/', { username, name, email })
+			.put('users/', { username, name, email })
 			.then((response) => response.data);
 	};
 	upload = (file) => {
 		console.log(file);
 		const dataFile = new FormData();
-		dataFile.append('file', file);
-
+		dataFile.append('imageAvatar', file);
+		console.log(dataFile);
 		return this.service
-			.post('user/upload', dataFile)
+			.patch('users/upload', dataFile)
 			.then((response) => response.data);
 	};
 }

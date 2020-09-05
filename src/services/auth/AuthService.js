@@ -28,7 +28,9 @@ export class AuthService {
 			.then((response) => response.data);
 	};
 	loggedin = () => {
-		return this.service.get('auth/loggedin').then((response) => response.data);
+		return this.service
+			.post('auth/loggedin')
+			.then((response) => response.status);
 	};
 }
 

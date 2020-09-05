@@ -5,12 +5,18 @@ import {
 	Form,
 	FormControl,
 	InputGroup,
+	Spinner,
+	Modal,
 } from 'react-bootstrap';
-import UploadImage from './UploadFoto';
+import { Redirect } from 'react-router-dom';
+import Avatar from './Avatar';
 import UserService from '../../../services/user/UserService';
+import AuthService from '../../../services/auth/AuthService';
 
 function Profile(props) {
 	const userService = new UserService();
+	const authService = new AuthService();
+	const [loading, setLoading] = useState(false);
 	const initialState = {
 		image: props.user.image,
 		username: props.user.username,
@@ -24,31 +30,33 @@ function Profile(props) {
 		setUser({ ...user, [name]: value });
 	};
 	const handleImage = (image) => {
-		props.user(image);
+		setUser({ ...user, image: image });
 		props.callback(props.user);
 	};
 	const handleFormSubmit = (event) => {
-		console.log(event);
 		event.preventDefault();
-
+		setLoading(true);
 		userService
-			.signup(user.username, user.name, user.email)
+			.save(user.username, user.name, user.email)
 			.then((response) => {
 				console.log(response);
 				props.callback(response);
+				setLoading(false);
 			})
 			.catch((error) => console.log(error));
 	};
+
+	authService.loggedin().then((status) => {
+		if (status === 403) {
+			return <Redirect to="/" />;
+		}
+	});
+
 	return (
 		<Container fluid className="d-flex flex-column align-items-center">
 			<h4>El teu perfil</h4>
 			<hr />
-			<img
-				src={user.image}
-				alt={user.username}
-				className="img-fluid img-thumbnail"
-			/>
-			<UploadImage onUpload={handleImage} image={user.image} />
+			<Avatar onUpload={handleImage} image={user.image} />
 			<hr />
 			<Form onSubmit={handleFormSubmit} className="w-100">
 				<InputGroup className="mb-3">
@@ -101,6 +109,27 @@ function Profile(props) {
 					Graba
 				</Button>
 			</Form>
+			<Modal
+				show={loading}
+				aria-labelledby="contained-modal-title-vcenter"
+				centered
+			>
+				<Modal.Header>
+					<Modal.Title>Guardant la Informació</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<Container fluid className="d-flex flex-column align-items-center">
+						<Spinner
+							animation="border"
+							variant="success"
+							size="lg"
+							role="status"
+						>
+							<span className="sr-only">Grabant...</span>
+						</Spinner>
+					</Container>
+				</Modal.Body>
+			</Modal>
 		</Container>
 	);
 }

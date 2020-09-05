@@ -7,6 +7,7 @@ import {
 	FormControl,
 	InputGroup,
 } from 'react-bootstrap';
+import { FaGoogle } from 'react-icons/fa';
 import AuthService from '../../../services/auth/AuthService';
 
 function Signup(props) {

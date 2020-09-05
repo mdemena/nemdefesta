@@ -6,6 +6,11 @@
 	overflow: hidden;
 	padding-top: 70px;
 }
+.avatar {
+	width: 150px;
+	height: 150px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
 	.App-logo {
 		animation: App-logo-spin infinite 20s linear;
