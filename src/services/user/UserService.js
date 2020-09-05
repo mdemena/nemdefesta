@@ -9,16 +9,18 @@ export class UserService {
 		this.service = service;
 	}
 
+	get = (id) => {
+		return this.service.get(`users/${id}`).then((response) => response.data);
+	};
+
 	save = (username, name, email) => {
 		return this.service
 			.put('users/', { username, name, email })
 			.then((response) => response.data);
 	};
 	upload = (file) => {
-		console.log(file);
 		const dataFile = new FormData();
 		dataFile.append('imageAvatar', file);
-		console.log(dataFile);
 		return this.service
 			.patch('users/upload', dataFile)
 			.then((response) => response.data);

@@ -21,7 +21,9 @@ function Avatar(props) {
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+	const handleShow = () => {
+		props.readOnly ? setShow(false) : setShow(true);
+	};
 
 	const handleChange = (event) => {
 		const imageFile = event.target.files[0];

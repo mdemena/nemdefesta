@@ -8,6 +8,7 @@ import ProtectedRoute from './components/auth/protected-route';
 import Home from './components/Home';
 import Login from './components/auth/login/Login';
 import Signup from './components/auth/signup/Signup';
+import ProfileSetup from './components/auth/profile/ProfileSetup';
 import Profile from './components/auth/profile/Profile';
 import './App.scss';
 
@@ -32,11 +33,15 @@ function App() {
 				<Route path="/signup">
 					<Signup getUser={getTheUser} />
 				</Route>
+				<Route path="/profile/:id">
+					<Profile />
+				</Route>
 				<ProtectedRoute
 					user={user}
 					callback={setUser}
+					exact
 					path="/profile"
-					component={Profile}
+					component={ProfileSetup}
 				/>
 			</Switch>
 			<MenuInferior user={user} />

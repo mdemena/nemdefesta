@@ -1,7 +1,7 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Image } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
-import * as Icon from 'react-bootstrap-icons';
+import { BsHouseFill, BsGeoAlt, BsPersonSquare } from 'react-icons/bs';
 
 function MenuInferior(props) {
 	const location = useLocation();
@@ -12,18 +12,28 @@ function MenuInferior(props) {
 			'd-flex flex-column justify-content-center align-items-center mr-4 ml-4 text-dark';
 		return cssName;
 	};
-	const userLink = props.user ? '/profile' : '/login';
+	const userLink = props.user ? (
+		<Image
+			src={props.user.image}
+			alt={props.user.image}
+			className="avatarMenu"
+			fluid
+			roundedCircle
+		/>
+	) : (
+		<BsPersonSquare size="25px" />
+	);
 	return (
 		<Navbar fixed="bottom" bg="success">
 			<Nav className="justify-content-around ml-auto mr-auto">
 				<NavLink to="/" className={getNavLinkClass('/')}>
-					<Icon.HouseFill size="25px" />
+					<BsHouseFill size="25px" />
 				</NavLink>
 				<NavLink to="/map" className={getNavLinkClass('/map')}>
-					<Icon.GeoAlt size="25px" />
+					<BsGeoAlt size="25px" />
 				</NavLink>
-				<NavLink to={userLink} className={getNavLinkClass('/login')}>
-					<Icon.PersonCircle size="25px" />
+				<NavLink to="/profile" className={getNavLinkClass('/login')}>
+					{userLink}
 				</NavLink>
 			</Nav>
 		</Navbar>
