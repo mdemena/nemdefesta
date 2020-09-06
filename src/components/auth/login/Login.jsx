@@ -74,13 +74,13 @@ function Login(props) {
 			dispatch({ type: 'login' });
 			AuthService.login(state.username, state.password)
 				.then((response) => {
-					props.dispatch({ type: 'login', user: response, loggedin: true });
+					props.dispatch({ type: 'login', user: response });
 					history.push('/');
 				})
 				.catch((error) =>
 					dispatch({
 						type: 'alert',
-						alertMessage: error.message,
+						alertMessage: error.response.data.message,
 					})
 				);
 		}

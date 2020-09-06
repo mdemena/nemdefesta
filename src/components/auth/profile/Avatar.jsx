@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import {
 	Container,
 	Image,
@@ -12,54 +12,56 @@ import {
 import UserService from '../../../services/user/UserService';
 import AuthService from '../../../services/auth/AuthService';
 
-function Avatar(props) {
-	const userService = new UserService();
-	const [loading, setLoading] = useState(false);
-	const [image, setImage] = useState(props.image);
-	const [showUpload, setShowUpload] = useState(false);
-	const [show, setShow] = useState(false);
+const avatarReducer = (state, action) => {
+	switch (action.type) {
+		case 'field':
+			return { ...state, [action.fieldName]: action.fieldValue };
+		case 'openModal':
+			return { ...state, isShowing: true };
+		case 'closeModal':
+			return { ...state, isShowing: false };
+		case 'loading':
+			return { ...state, isLoading: true };
+		case 'notLoading':
+			return { ...state, isLoading: false };
+		default:
+			return state;
+	}
+};
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => {
-		props.readOnly ? setShow(false) : setShow(true);
+function Avatar(props) {
+	const initialState = {
+		image: props.image,
+		isLoading: false,
+		isShowing: false,
 	};
+	const [state, dispatch] = useReducer(avatarReducer, initialState);
+
+	const handleClose = () => dispatch({ type: 'closeModal' });
+	const handleShow = () =>
+		dispatch({ type: props.readOnly ? 'closeModal' : 'openModal' });
 
 	const handleChange = (event) => {
 		const imageFile = event.target.files[0];
-		setImage(imageFile);
+		dispatch({ type: 'field', fieldName: 'image', fieldValue: imageFile });
 	};
 	const handleSave = (event) => {
 		handleClose();
-		setLoading(true);
-		// const imageFile = event.target.files[0];
+		dispatch({ type: 'loading' });
 		AuthService.loggedin().then((logged) => {
 			if (logged) {
-				userService.upload(image).then((response) => {
-					props.onUpload(response.image);
-					setLoading(false);
+				UserService.upload(state.image).then((response) => {
+					props.onUpload(response);
+					dispatch({ type: 'notLoading' });
 				});
 			}
 		});
 	};
-	if (loading) {
+	if (state.isLoading) {
 		return (
 			<Spinner animation="border" variant="success" size="lg" role="status">
 				<span className="sr-only">Carregant...</span>
 			</Spinner>
-		);
-	} else if (showUpload) {
-		return (
-			<InputGroup className="mb-3">
-				<FormControl
-					id="imatge"
-					name="imatge"
-					type="file"
-					onChange={handleChange}
-					placeholder="Fitxer de la imatge"
-					aria-label="Fitxer de la imatge"
-					aria-describedby="image-text"
-				/>
-			</InputGroup>
 		);
 	}
 	return (
@@ -74,7 +76,7 @@ function Avatar(props) {
 				onClick={handleShow}
 			/>
 			<Modal
-				show={show}
+				show={state.isShowing}
 				onHide={handleClose}
 				aria-labelledby="contained-modal-title-vcenter"
 				centered

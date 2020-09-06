@@ -38,5 +38,6 @@ export class UserService {
 			.catch((error) => error.status);
 	};
 }
+const userService = new UserService();
 
-export default UserService;
+export default userService;

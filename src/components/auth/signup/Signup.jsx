@@ -30,16 +30,17 @@ const signupReducer = (state, action) => {
 	}
 };
 
+const initialState = {
+	username: '',
+	name: '',
+	email: '',
+	password: '',
+	isLoading: false,
+	showAlert: false,
+	alertMessages: [],
+};
+
 function Signup(props) {
-	const initialState = {
-		username: '',
-		name: '',
-		email: '',
-		password: '',
-		isLoading: false,
-		showAlert: false,
-		alertMessages: [],
-	};
 	const [state, dispatch] = useReducer(signupReducer, initialState);
 
 	const validEmailRegex = RegExp(
@@ -54,7 +55,6 @@ function Signup(props) {
 	};
 
 	const handleFormSubmit = async (event) => {
-		console.log(event);
 		event.preventDefault();
 		if (!state.name) {
 			dispatch({ type: 'alert', alertMessage: `Has d'indicar un nom` });
@@ -107,13 +107,13 @@ function Signup(props) {
 			)
 				.then((response) => {
 					console.log(response);
-					props.dispatch({ type: 'login', user: response, loggedin: true });
+					props.dispatch({ type: 'login', user: response });
 					history.push('/');
 				})
 				.catch((error) =>
 					dispatch({
 						type: 'alert',
-						alertMessage: error.message,
+						alertMessage: error.response.data.message,
 					})
 				);
 			dispatch({ type: 'notLoading' });
