@@ -14,7 +14,6 @@ import AuthService from '../../../services/auth/AuthService';
 
 function Avatar(props) {
 	const userService = new UserService();
-	const authService = new AuthService();
 	const [loading, setLoading] = useState(false);
 	const [image, setImage] = useState(props.image);
 	const [showUpload, setShowUpload] = useState(false);
@@ -30,12 +29,11 @@ function Avatar(props) {
 		setImage(imageFile);
 	};
 	const handleSave = (event) => {
-		// setShowUpload(false);
 		handleClose();
 		setLoading(true);
 		// const imageFile = event.target.files[0];
-		authService.loggedin().then((status) => {
-			if (status === 200) {
+		AuthService.loggedin().then((logged) => {
+			if (logged) {
 				userService.upload(image).then((response) => {
 					props.onUpload(response.image);
 					setLoading(false);

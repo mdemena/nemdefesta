@@ -1,50 +1,67 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { Switch, Route } from 'react-router-dom';
-import MenuSuperior from './components/menusuperior/MenuSuperior';
-import MenuInferior from './components/menuinferior/MenuInferior';
-import ProtectedRoute from './components/auth/protected-route';
+import TopMenu from './components/topmenu/TopMenu';
+import BottomMenu from './components/bottommenu/BottomMenu';
+import ProtectedRoute from './components/auth/protectedroute/ProtectedRoute';
 import Home from './components/Home';
 import Login from './components/auth/login/Login';
 import Signup from './components/auth/signup/Signup';
 import ProfileSetup from './components/auth/profile/ProfileSetup';
 import Profile from './components/auth/profile/Profile';
+import AuthService from './services/auth/AuthService';
 import './App.scss';
 
 require('dotenv').config();
 
+const appReducer = (state, action = {}) => {
+	switch (action.type) {
+		case 'login':
+			const { user } = action;
+			sessionStorage.setItem('user', JSON.stringify(user));
+			return { user };
+		case 'logout':
+			sessionStorage.removeItem('user');
+			return { user: null };
+		default:
+			return state;
+	}
+};
+
+const initialState = {
+	user: JSON.parse(sessionStorage.getItem('user') || null),
+};
+
 function App() {
-	const [user, setUser] = useState(null);
-	const getTheUser = (user) => {
-		setUser(user);
-	};
+	const [state, dispatch] = useReducer(appReducer, initialState);
+	const { user } = state;
 
 	return (
 		<Container className="fill-window">
-			<MenuSuperior />
+			<TopMenu />
 			<Switch>
 				<Route exact path="/">
-					<Home user={user} />
+					<Home />
 				</Route>
 				<Route path="/login">
-					<Login getUser={getTheUser} />
+					<Login dispatch={dispatch} />
 				</Route>
 				<Route path="/signup">
-					<Signup getUser={getTheUser} />
+					<Signup dispatch={dispatch} />
 				</Route>
 				<Route path="/profile/:id">
 					<Profile />
 				</Route>
 				<ProtectedRoute
 					user={user}
-					callback={setUser}
+					callback={dispatch}
 					exact
 					path="/profile"
 					component={ProfileSetup}
 				/>
 			</Switch>
-			<MenuInferior user={user} />
+			<BottomMenu user={user} />
 		</Container>
 	);
 }

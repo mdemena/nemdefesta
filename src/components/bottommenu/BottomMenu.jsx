@@ -3,7 +3,7 @@ import { Navbar, Nav, Image } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
 import { BsHouseFill, BsGeoAlt, BsPersonSquare } from 'react-icons/bs';
 
-function MenuInferior(props) {
+function BottomMenu(props) {
 	const location = useLocation();
 
 	const getNavLinkClass = (path) => {
@@ -28,16 +28,18 @@ function MenuInferior(props) {
 			<Nav className="justify-content-around ml-auto mr-auto">
 				<NavLink to="/" className={getNavLinkClass('/')}>
 					<BsHouseFill size="25px" />
+					Inici
 				</NavLink>
 				<NavLink to="/map" className={getNavLinkClass('/map')}>
 					<BsGeoAlt size="25px" />
+					Mapa
 				</NavLink>
 				<NavLink to="/profile" className={getNavLinkClass('/login')}>
-					{userLink}
+					{userLink}Perfil
 				</NavLink>
 			</Nav>
 		</Navbar>
 	);
 }
 
-export default MenuInferior;
+export default BottomMenu;

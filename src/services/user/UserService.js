@@ -25,6 +25,18 @@ export class UserService {
 			.patch('users/upload', dataFile)
 			.then((response) => response.data);
 	};
+	checkusername = (id, username) => {
+		return this.service
+			.post('users/checkusername', { id, username })
+			.then((response) => response.status)
+			.catch((error) => error.status);
+	};
+	checkemail = (id, email) => {
+		return this.service
+			.post('users/checkemail', { id, email })
+			.then((response) => response.status)
+			.catch((error) => error.status);
+	};
 }
 
 export default UserService;

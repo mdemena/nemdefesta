@@ -7,6 +7,7 @@ import {
 	InputGroup,
 	Spinner,
 	Modal,
+	Alert,
 } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
 import Avatar from './Avatar';
@@ -15,7 +16,6 @@ import AuthService from '../../../services/auth/AuthService';
 
 function ProfileSetup(props) {
 	const userService = new UserService();
-	const authService = new AuthService();
 	const [loading, setLoading] = useState(false);
 	const initialState = {
 		image: props.user.image,
@@ -24,7 +24,10 @@ function ProfileSetup(props) {
 		email: props.user.email,
 	};
 	const [user, setUser] = useState(initialState);
-
+	const validEmailRegex = RegExp(
+		/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+	);
+	const [showAlert, setShowAlert] = useState({ show: false, messages: [] });
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		setUser({ ...user, [name]: value });
@@ -33,24 +36,59 @@ function ProfileSetup(props) {
 		setUser({ ...user, image: image });
 		props.callback(props.user);
 	};
-	const handleFormSubmit = (event) => {
+	const handleFormSubmit = async (event) => {
 		event.preventDefault();
-		setLoading(true);
-		userService
-			.save(user.username, user.name, user.email)
-			.then((response) => {
-				console.log(response);
-				props.callback(response);
-				setLoading(false);
-			})
-			.catch((error) => console.log(error));
+		const errMessages = [];
+		if (!user.name) {
+			errMessages.push(`Has d'indicar un nom`);
+		}
+		if (!user.username) {
+			errMessages.push(`Has d'indicar un usuari`);
+		} else {
+			const status = await userService.checkusername(user._id, user.username);
+			if (status === 200)
+				errMessages.push(
+					`L'usuari ${user.username} ja existeix, escull un altre`
+				);
+		}
+		if (!user.email) {
+			errMessages.push(`Has d'indicar un email`);
+		} else {
+			const status = await userService.checkemail(user._id, user.email);
+			if (status === 200)
+				errMessages.push(`L'email ${user.email} ja existeix, escull un altre`);
+		}
+		if (!validEmailRegex.test(user.email)) {
+			errMessages.push(`El format del email és incorrecte`);
+		}
+		if (errMessages.length > 0) {
+			setShowAlert({ show: true, messages: errMessages });
+		} else {
+			setLoading(true);
+			userService
+				.save(user.username, user.name, user.email)
+				.then((response) => {
+					console.log(response);
+					props.callback(response);
+					setLoading(false);
+				})
+				.catch((error) => setShowAlert({ show: true, messages: [error] }));
+		}
 	};
-
-	authService.loggedin().then((status) => {
-		if (status === 403) {
+	const handleLogout = (image) => {
+		AuthService.logout();
+		props.callback(undefined);
+	};
+	AuthService.loggedin().then((logged) => {
+		if (!logged) {
+			props.callback(undefined);
 			return <Redirect to="/" />;
 		}
 	});
+
+	const errorsMessage = showAlert.messages.map((err, index) => (
+		<li key={index}>{err}</li>
+	));
 
 	return (
 		<Container fluid className="d-flex flex-column align-items-center">
@@ -104,10 +142,22 @@ function ProfileSetup(props) {
 						aria-describedby="name-email"
 					/>
 				</InputGroup>
-				<hr />
-				<Button type="submit" className="btn btn-success w-100">
+				<Button type="submit" className="btn btn-success w-100 mt-2">
 					Graba
 				</Button>
+				<Button className="btn btn-danger w-100 mt-2" onClick={handleLogout}>
+					Tanca sessió
+				</Button>
+				<Alert
+					className="mt-2"
+					variant="danger"
+					show={showAlert.show}
+					onClose={() => setShowAlert({ show: false, messages: [] })}
+					dismissible
+				>
+					<Alert.Heading>Ups!</Alert.Heading>
+					<ul>{errorsMessage}</ul>
+				</Alert>
 			</Form>
 			<Modal
 				show={loading}

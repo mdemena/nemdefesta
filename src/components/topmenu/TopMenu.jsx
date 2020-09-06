@@ -1,23 +1,23 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, NavLink } from 'react-bootstrap';
 import { GiDandelionFlower } from 'react-icons/gi';
 
-function MenuSuperior() {
+function TopMenu() {
 	return (
 		<Navbar fixed="top" bg="success" expand="md">
-			<Navbar.Brand href="/" className="d-flex flex-row align-items-center">
+			<Navbar.Brand to="/" className="d-flex flex-row align-items-center">
 				<GiDandelionFlower />
 				<span className="ml-2">Nem De Festa !!</span>
 			</Navbar.Brand>
 			<Navbar.Toggle aria-controls="menu-nemdefesta" />
 			<Navbar.Collapse id="menu-nemdefesta">
 				<Nav className="mr-auto">
-					<Nav.Link href="/map">Propers</Nav.Link>
-					<Nav.Link href="/login">Entrar</Nav.Link>
+					<NavLink to="/map">Propers</NavLink>
+					<NavLink to="/login">Entrar</NavLink>
 				</Nav>
 			</Navbar.Collapse>
 		</Navbar>
 	);
 }
 
-export default MenuSuperior;
+export default TopMenu;
