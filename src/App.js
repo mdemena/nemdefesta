@@ -5,12 +5,11 @@ import { Switch, Route } from 'react-router-dom';
 import TopMenu from './components/topmenu/TopMenu';
 import BottomMenu from './components/bottommenu/BottomMenu';
 import ProtectedRoute from './components/auth/protectedroute/ProtectedRoute';
-import Home from './components/Home';
+import Events from './components/events/Events';
 import Login from './components/auth/login/Login';
 import Signup from './components/auth/signup/Signup';
 import ProfileSetup from './components/auth/profile/ProfileSetup';
-import Profile from './components/auth/profile/Profile';
-import AuthService from './services/auth/AuthService';
+import ProfileDetail from './components/auth/profile/ProfileDetail';
 import './App.scss';
 
 require('dotenv').config();
@@ -42,7 +41,7 @@ function App() {
 			<TopMenu />
 			<Switch>
 				<Route exact path="/">
-					<Home />
+					<Events />
 				</Route>
 				<Route path="/login">
 					<Login dispatch={dispatch} />
@@ -51,7 +50,7 @@ function App() {
 					<Signup dispatch={dispatch} />
 				</Route>
 				<Route path="/profile/:id">
-					<Profile />
+					<ProfileDetail />
 				</Route>
 				<ProtectedRoute
 					user={user}

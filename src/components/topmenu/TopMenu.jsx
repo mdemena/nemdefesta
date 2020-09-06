@@ -9,13 +9,13 @@ function TopMenu() {
 				<GiDandelionFlower />
 				<span className="ml-2">Nem De Festa !!</span>
 			</Navbar.Brand>
-			<Navbar.Toggle aria-controls="menu-nemdefesta" />
+			{/* <Navbar.Toggle aria-controls="menu-nemdefesta" />
 			<Navbar.Collapse id="menu-nemdefesta">
 				<Nav className="mr-auto">
 					<NavLink to="/map">Propers</NavLink>
 					<NavLink to="/login">Entrar</NavLink>
 				</Nav>
-			</Navbar.Collapse>
+			</Navbar.Collapse> */}
 		</Navbar>
 	);
 }

@@ -7,7 +7,7 @@ const ProtectedRoute = ({ component: Component, user, callback, ...rest }) => {
 		<Route
 			{...rest}
 			render={(props) => {
-				if (AuthService.loggedin() && user) {
+				if (user) {
 					return <Component {...props} callback={callback} user={user} />;
 				} else {
 					callback(undefined);

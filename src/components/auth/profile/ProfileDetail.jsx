@@ -12,13 +12,12 @@ import { useParams } from 'react-router-dom';
 import Avatar from './Avatar';
 import UserService from '../../../services/user/UserService';
 
-function Profile(props) {
-	const userService = new UserService();
+function ProfileDetail() {
 	const { id } = useParams();
 	const [user, setUser] = useState({});
 	const [loading, setLoading] = useState(true);
 
-	userService.get(id).then((response) => {
+	UserService.get(id).then((response) => {
 		setLoading(false);
 		setUser(response);
 	});
@@ -87,4 +86,4 @@ function Profile(props) {
 	);
 }
 
-export default Profile;
+export default ProfileDetail;
