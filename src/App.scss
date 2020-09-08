@@ -14,8 +14,9 @@
 	width: 25px;
 	height: 25px;
 }
-@media (prefers-reduced-motion: no-preference) {
-	.App-logo {
-		animation: App-logo-spin infinite 20s linear;
+
+@media screen and (max-width: 600px) {
+	.inputRow {
+		margin-top: 0.5rem;
 	}
 }

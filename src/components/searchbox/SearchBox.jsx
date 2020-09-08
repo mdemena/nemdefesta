@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { Form, Button, Col, Accordion } from 'react-bootstrap';
+import { Form, Button, Col, InputGroup } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
-import { DateUtils, DayPickerInput } from 'react-day-picker';
-import MomentLocaleUtils, {
-	formatDate,
-	parseDate,
-} from 'react-day-picker/moment';
-import 'moment/locale/es';
+import dayjs from 'dayjs';
+require('dayjs/locale/es');
 
 function SearchBox(props) {
 	const initialState = {
-		searchText: props.searchText || '',
-		fromDate: props.fromDate || new Date(),
-		toDate: props.toDate || DateUtils.addMonths(new Date(), 1),
+		searchText: props.searchEvents || '',
+		fromDate: props.fromDate || dayjs().format('YYYY-MM-DD'),
+		toDate: props.toDate || dayjs().add(1, 'month').format('YYYY-MM-DD'),
 	};
 	const [search, setSearch] = useState(initialState);
 
@@ -23,57 +19,65 @@ function SearchBox(props) {
 		event.preventDefault();
 		props.onChange(search);
 	};
+
 	return (
 		<Form inline onSubmit={handleSubmit} className="w-100">
 			<Form.Row className="align-items-center w-100">
 				<Col>
-					<Form.Control
-						type="text"
-						id="searchText"
-						name="searchText"
-						placeholder="Cercar"
-						value={search.searchText}
-						onChange={handleChange}
-					/>
-				</Col>
-				<Col xs="25px">
-					<Button variant="success" type="submit">
-						<FaSearch size="25px" />
-					</Button>
+					<InputGroup>
+						<Form.Control
+							type="text"
+							className="w-auto"
+							id="searchText"
+							name="searchText"
+							placeholder="Cercar"
+							value={search.searchText}
+							onChange={handleChange}
+							aria-label="Search"
+							aria-describedby="search-text"
+						/>
+						<InputGroup.Append>
+							<Button variant="success" type="submit">
+								<FaSearch />
+							</Button>
+						</InputGroup.Append>
+					</InputGroup>
 				</Col>
 			</Form.Row>
-			{/* <Form.Row className="align-items-center w-100">
+			<Form.Row className="align-items-center w-100 mt-2">
 				<Col>
-					<Form.Label>Data Inici:</Form.Label>
-					<DayPickerInput
-						id="fromDate"
-						name="fromDate"
-						formatDate={formatDate}
-						parseDate={parseDate}
-						value={search.fromDate}
-						onChange={handleChange}
-						dayPickerProps={{
-							locale: 'es',
-							localeUtils: MomentLocaleUtils,
-						}}
-					></DayPickerInput>
+					<InputGroup>
+						<InputGroup.Prepend>
+							<InputGroup.Text id="fromdate-text">Inici:</InputGroup.Text>
+						</InputGroup.Prepend>
+						<Form.Control
+							type="date"
+							id="fromDate"
+							name="fromDate"
+							value={search.fromDate}
+							onChange={handleChange}
+							aria-label="Inici"
+							aria-describedby="fromdate-text"
+						/>
+					</InputGroup>
 				</Col>
 				<Col>
-					<Form.Label>Data Fi:</Form.Label>
-					<DayPickerInput
-						id="toDate"
-						name="toDate"
-						formatDate={formatDate}
-						parseDate={parseDate}
-						value={search.toDate}
-						onChange={handleChange}
-						dayPickerProps={{
-							locale: 'es',
-							localeUtils: MomentLocaleUtils,
-						}}
-					></DayPickerInput>
+					<InputGroup className="inputRow">
+						<InputGroup.Prepend>
+							<InputGroup.Text id="todate-text">Fi:</InputGroup.Text>
+						</InputGroup.Prepend>
+						<Form.Control
+							type="date"
+							id="toDate"
+							name="toDate"
+							value={search.toDate}
+							onChange={handleChange}
+							aria-label="Fi"
+							aria-describedby="todate-text"
+						/>
+					</InputGroup>
 				</Col>
-			</Form.Row> */}
+			</Form.Row>
 		</Form>
 	);
 }

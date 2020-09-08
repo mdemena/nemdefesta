@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Nav, NavLink } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import { GiDandelionFlower } from 'react-icons/gi';
 
 function TopMenu() {

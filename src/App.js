@@ -37,11 +37,11 @@ function App() {
 	const { user } = state;
 
 	return (
-		<Container className="fill-window">
+		<Container className="fill-window overflow-auto">
 			<TopMenu />
 			<Switch>
 				<Route exact path="/">
-					<Events />
+					<Events user={user} />
 				</Route>
 				<Route path="/login">
 					<Login dispatch={dispatch} />

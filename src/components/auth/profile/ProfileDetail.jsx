@@ -21,6 +21,7 @@ function ProfileDetail() {
 		setLoading(false);
 		setUser(response);
 	});
+
 	if (loading) {
 		return (
 			<Modal
