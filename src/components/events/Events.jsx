@@ -33,6 +33,7 @@ const initialState = {
 	events: JSON.parse(sessionStorage.getItem('events')) || [],
 	isLoading: false,
 	isShowing: false,
+	refresh: false,
 };
 
 function Events(props) {
@@ -60,7 +61,9 @@ function Events(props) {
 
 		getEvents(fromDate, toDate, searchText);
 	};
-
+	const handleClick = () => {
+		getEvents(state.fromDate, state.toDate, state.searchText);
+	};
 	useEffect(() => {
 		getEvents(state.fromDate, state.toDate, state.searchText);
 	}, []);
@@ -87,10 +90,13 @@ function Events(props) {
 				})
 			);
 	}
-
-	console.log('State:', state);
 	const events = state.events.map((event) => (
-		<EventCard user={props.user} key={event._id} event={event} />
+		<EventCard
+			user={props.user}
+			key={event._id}
+			event={event}
+			onClick={handleClick}
+		/>
 	));
 	return (
 		<Container>

@@ -10,7 +10,7 @@ export class CommentService {
 	}
 	create = (title, description, event, activity) => {
 		return this.service
-			.post(`/add/${eventId}`, {
+			.post(`/`, {
 				title,
 				description,
 				event,
