@@ -1,0 +1,22 @@
+.fill-window {
+	height: 100%;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	padding-top: 70px;
+}
+.avatar {
+	width: 150px;
+	height: 150px;
+}
+.avatarMenu {
+	width: 25px;
+	height: 25px;
+}
+
+@media screen and (max-width: 600px) {
+	.inputRow {
+		margin-top: 0.5rem;
+	}
+}
