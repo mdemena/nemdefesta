@@ -4,11 +4,9 @@ import LikeIcon from '../social/LikeIcon';
 import DisLikeIcon from '../social/DisLikeIcon';
 import StarIcon from '../social/StarIcon';
 import CommentIcon from '../comments/CommentIcon';
-import dayjs from 'dayjs';
-require('dayjs/locale/es');
 
-function EventCard(props) {
-	const element = props.event;
+function ActivityCard(props) {
+	const element = props.activity;
 
 	const handleClick = () => {
 		props.onClick();
@@ -30,32 +28,32 @@ function EventCard(props) {
 				</Card.Text>
 			</Card.Body>
 			<Card.Footer>
-				<div className="d-flex flex-row justify-content-around align-items-center">
+				<div className="d-flex flex-row justify-content-between align-items-center">
 					<LikeIcon
-						type="event"
+						type="activity"
 						id={element._id}
 						quantity={element.likes.length}
 						user={props.user}
 						onClick={handleClick}
 					/>
 					<DisLikeIcon
-						type="event"
+						type="activity"
 						id={element._id}
 						quantity={element.unlikes.length}
 						user={props.user}
 						onClick={handleClick}
 					/>
-					<CommentIcon
-						type="event"
+					<StarIcon
+						type="activity"
 						id={element._id}
-						array={element.comments}
+						array={element.attendees}
 						user={props.user}
 						onClick={handleClick}
 					/>
-					<StarIcon
-						type="event"
+					<CommentIcon
+						type="activity"
 						id={element._id}
-						array={element.attendees}
+						array={element.comments}
 						user={props.user}
 						onClick={handleClick}
 					/>
@@ -65,4 +63,4 @@ function EventCard(props) {
 	);
 }
 
-export default EventCard;
+export default ActivityCard;
