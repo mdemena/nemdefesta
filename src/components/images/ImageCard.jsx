@@ -7,8 +7,8 @@ import CommentIcon from '../comments/CommentIcon';
 import dayjs from 'dayjs';
 require('dayjs/locale/es');
 
-function ActivityCard(props) {
-	const element = props.activity;
+function ImageCard(props) {
+	const element = props.image;
 
 	const handleClick = () => {
 		props.onClick();
@@ -16,42 +16,30 @@ function ActivityCard(props) {
 	return (
 		<Card className="bg-success text-white" border="success">
 			<Card.Body>
-				<Card.Title>{element.name}</Card.Title>
-				<Card.Text>{element.description}</Card.Text>
-				<Card.Text>
-					<small>
-						Desdel {dayjs(element.fromDate).format('DD-MM-YYYY')} fins el{' '}
-						{dayjs(element.toDate).format('DD-MM-YYYY')}
-					</small>
-				</Card.Text>
+				<Card.Img src={element.image} alt={element.title} />
+				<Card.ImgOverlay>
+					<Card.Title>{element.title}</Card.Title>
+					<Card.Text>{element.description}</Card.Text>
+					<Card.Text>
+						<small>
+							Publicada el {dayjs(element.createAt).format('DD-MM-YYYY')}
+						</small>
+					</Card.Text>
+				</Card.ImgOverlay>
 			</Card.Body>
 			<Card.Footer>
 				<div className="d-flex flex-row justify-content-around align-items-center">
 					<LikeIcon
-						type="activity"
+						type="image"
 						id={element._id}
 						quantity={element.likes.length}
 						user={props.user}
 						onClick={handleClick}
 					/>
 					<DisLikeIcon
-						type="activity"
+						type="image"
 						id={element._id}
 						quantity={element.unlikes.length}
-						user={props.user}
-						onClick={handleClick}
-					/>
-					<StarIcon
-						type="activity"
-						id={element._id}
-						array={element.attendees}
-						user={props.user}
-						onClick={handleClick}
-					/>
-					<CommentIcon
-						type="activity"
-						id={element._id}
-						array={element.comments}
 						user={props.user}
 						onClick={handleClick}
 					/>
@@ -61,4 +49,4 @@ function ActivityCard(props) {
 	);
 }
 
-export default ActivityCard;
+export default ImageCard;

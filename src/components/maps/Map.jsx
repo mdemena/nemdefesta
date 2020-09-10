@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {
-	GoogleMap,
-	LoadScript,
-	Marker,
-	MarkerClusterer,
-	InfoWindow,
-} from '@react-google-maps/api';
+import { GoogleMap, LoadScript, InfoWindow } from '@react-google-maps/api';
 import ExentInfoWindow from '../events/ExentInfoWindow';
 
 function Map(props) {
 	const [center, setCenter] = useState({ lat: 0, lng: 0 });
 	const points = JSON.parse(sessionStorage.getItem('events'));
-	console.log('Points', points);
 
 	useEffect(() => {
 		if (points.length > 0) {

@@ -9,7 +9,7 @@ function BottomMenu(props) {
 	const getNavLinkClass = (path) => {
 		let cssName = location.pathname === path ? 'active ' : '';
 		cssName +=
-			'd-flex flex-column justify-content-center align-items-center mr-4 ml-4 text-dark';
+			'd-flex flex-column justify-content-center align-items-center mr-4 ml-4 text-white';
 		return cssName;
 	};
 	const userLink = props.user ? (

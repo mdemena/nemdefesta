@@ -10,6 +10,7 @@ import Login from './components/auth/login/Login';
 import Signup from './components/auth/signup/Signup';
 import ProfileSetup from './components/auth/profile/ProfileSetup';
 import ProfileDetail from './components/auth/profile/ProfileDetail';
+import EventDetail from './components/events/EventDetail';
 import Map from './components/maps/Map';
 import './App.scss';
 
@@ -38,7 +39,7 @@ function App() {
 	const { user } = state;
 
 	return (
-		<Container className="fill-window overflow-auto mb-10">
+		<Container className="fill-window overflow-auto mb-5">
 			<TopMenu />
 			<Switch>
 				<Route exact path="/">
@@ -55,6 +56,12 @@ function App() {
 				</Route>
 				<Route path="/profile/:id">
 					<ProfileDetail />
+				</Route>
+				<Route exact path="/events">
+					<Events user={user} />
+				</Route>
+				<Route path="/events/:id">
+					<EventDetail user={user} />
 				</Route>
 				<ProtectedRoute
 					user={user}

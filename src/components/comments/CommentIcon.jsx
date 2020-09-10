@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, ListGroup } from 'react-bootstrap';
+import { Modal, ListGroup, Badge } from 'react-bootstrap';
 import { BiCommentDetail } from 'react-icons/bi';
 import CommentCard from './CommentCard';
 
@@ -12,7 +12,7 @@ function CommentIcon(props) {
 		setShowComments(!showComments);
 	};
 	const comments = props.array.map((comment) => (
-		<ListGroup.Item key={comment._id}>
+		<ListGroup.Item key={comment._id} className="pl-0 pr-0">
 			<CommentCard
 				user={props.user}
 				comment={comment}
@@ -26,7 +26,8 @@ function CommentIcon(props) {
 				className="d-flex flex-row justify-content-between align-items-center"
 				onClick={handleShow}
 			>
-				<BiCommentDetail /> {props.array.length}
+				<BiCommentDetail />
+				<Badge variant="light">{props.array.length}</Badge>
 			</div>
 			<Modal show={showComments} onHide={handleShow}>
 				<Modal.Header closeButton>

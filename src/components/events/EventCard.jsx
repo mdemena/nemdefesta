@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import LikeIcon from '../social/LikeIcon';
 import DisLikeIcon from '../social/DisLikeIcon';
@@ -9,9 +10,13 @@ require('dayjs/locale/es');
 
 function EventCard(props) {
 	const element = props.event;
+	const history = useHistory();
 
 	const handleClick = () => {
 		props.onClick();
+	};
+	const handleDetail = (id) => {
+		history.push('/events/' + id);
 	};
 	return (
 		<Card className="bg-success text-white" border="success">
@@ -20,13 +25,16 @@ function EventCard(props) {
 				src={element.image}
 				alt={element.name}
 				className="mw-100"
+				onClick={() => handleDetail(element._id)}
 			/>
-			<Card.Body>
+			<Card.Body onClick={() => handleDetail(element._id)}>
 				<Card.Title>{element.name}</Card.Title>
 				<Card.Text>{element.description}</Card.Text>
 				<Card.Text>
-					Desde: {dayjs(element.fromDate).format('DD-MM-YYYY')} Fins:{' '}
-					{dayjs(element.toDate).format('DD-MM-YYYY')}
+					<small>
+						Desdel {dayjs(element.fromDate).format('DD-MM-YYYY')} fins el{' '}
+						{dayjs(element.toDate).format('DD-MM-YYYY')}
+					</small>
 				</Card.Text>
 			</Card.Body>
 			<Card.Footer>

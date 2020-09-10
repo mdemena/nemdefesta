@@ -18,11 +18,13 @@ function CommentCard(props) {
 				<Card.Title>{element.title}</Card.Title>
 				<Card.Text>{element.description}</Card.Text>
 				<Card.Text>
-					Comentari de:{' '}
-					<Link to={'/profile/' + element.user._id}>
-						{element.user.username}
-					</Link>{' '}
-					realitzat el {dayjs(element.createdAt).format('DD-MM-YYYY HH:MM')}
+					<small>
+						Comentari de:{' '}
+						<Link to={'/profile/' + element.user._id}>
+							{element.user.username}
+						</Link>{' '}
+						realitzat el {dayjs(element.createdAt).format('DD-MM-YYYY HH:MM')}
+					</small>
 				</Card.Text>
 			</Card.Body>
 			<Card.Footer>

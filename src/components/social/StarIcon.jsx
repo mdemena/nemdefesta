@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Overlay, Popover } from 'react-bootstrap';
+import { Overlay, Popover, Badge } from 'react-bootstrap';
 import { AiFillStar, AiOutlineStar, AiFillAlert } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import EventService from '../../services/event/EventService';
@@ -12,7 +12,6 @@ function StarIcon(props) {
 
 	const handleClick = async (event) => {
 		if (props.user) {
-			console.log('Star');
 			switch (props.type) {
 				case 'event':
 					await EventService.attendee(props.id);
@@ -39,7 +38,7 @@ function StarIcon(props) {
 				onClick={handleClick}
 			>
 				<AiFillStar />
-				<span>¡Assistiràs!</span>
+				<Badge variant="light">¡Assistiràs!</Badge>
 			</div>
 		) : (
 			<div
@@ -47,7 +46,7 @@ function StarIcon(props) {
 				onClick={handleClick}
 			>
 				<AiOutlineStar />
-				<span>Assistiràs?</span>
+				<Badge variant="light">Assistiràs?</Badge>
 			</div>
 		)
 	) : (
@@ -56,7 +55,7 @@ function StarIcon(props) {
 			onClick={handleClick}
 		>
 			<AiOutlineStar />
-			<span>Assistiràs?</span>
+			<Badge variant="light">Assistiràs?</Badge>
 		</div>
 	);
 	return (

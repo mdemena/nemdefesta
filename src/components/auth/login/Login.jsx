@@ -24,6 +24,12 @@ const loginReducer = (state, action) => {
 				alertMessages: alertMessages,
 				isLoading: false,
 			};
+		case 'resetAlert':
+			return {
+				...state,
+				showAlert: false,
+				alertMessages: [],
+			};
 		case 'closeAlert':
 			return { ...state, showAlert: false, alertMessages: [] };
 		case 'login':
@@ -53,8 +59,8 @@ function Login(props) {
 		dispatch({ type: 'field', fieldName: name, fieldValue: value });
 	};
 	const handleFormSubmit = (event) => {
-		console.log(event);
 		event.preventDefault();
+		dispatch({ type: 'resetAlert' });
 		if (!state.username) {
 			dispatch({ type: 'alert', alertMessage: `Has d'indicar un usuari` });
 		}

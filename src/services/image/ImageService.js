@@ -30,15 +30,12 @@ export class ImageService {
 			.then((response) => response.data);
 	};
 	list = () => {
-		console.log();
 		return this.service.get('/').then((response) => response.data);
 	};
 	listOfEvent = (id) => {
-		console.log();
 		return this.service.get(`/event/${id}`).then((response) => response.data);
 	};
 	listOfActivity = (id) => {
-		console.log();
 		return this.service
 			.get(`/activity/${id}`)
 			.then((response) => response.data);

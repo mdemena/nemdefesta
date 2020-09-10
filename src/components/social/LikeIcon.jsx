@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Overlay, Popover } from 'react-bootstrap';
+import { Overlay, Popover, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { AiFillLike, AiFillAlert } from 'react-icons/ai';
 import EventService from '../../services/event/EventService';
@@ -46,7 +46,7 @@ function LikeIcon(props) {
 				onClick={handleClick}
 			>
 				<AiFillLike />
-				{props.quantity}
+				<Badge variant="light">{props.quantity}</Badge>
 			</div>
 			<Overlay
 				show={showInfo}
