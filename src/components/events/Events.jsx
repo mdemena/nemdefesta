@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import { Container, Row, Spinner, CardDeck } from 'react-bootstrap';
+import { Container, Row, Modal, Spinner, CardDeck } from 'react-bootstrap';
 import SearchBox from '../searchbox/SearchBox';
 import EventService from '../../services/event/EventService';
 import EventCard from './EventCard';
@@ -23,7 +23,7 @@ const eventsReducer = (state, action) => {
 	}
 };
 const initialState = {
-	searchText: JSON.parse(sessionStorage.getItem('searchEvents')) || '',
+	searchText: JSON.parse(sessionStorage.getItem('searchText')) || '',
 	fromDate:
 		JSON.parse(sessionStorage.getItem('fromDate')) ||
 		dayjs().format('YYYY-MM-DD'),
@@ -33,15 +33,14 @@ const initialState = {
 	events: JSON.parse(sessionStorage.getItem('events')) || [],
 	isLoading: false,
 	isShowing: false,
+	refresh: false,
 };
 
 function Events(props) {
 	const [state, dispatch] = useReducer(eventsReducer, initialState);
 
 	const handleChange = (search) => {
-		console.log('Search:', search);
 		const { searchText, fromDate, toDate } = search;
-		console.log('Search2:', searchText, fromDate, toDate);
 		dispatch({
 			type: 'field',
 			fieldName: 'searchText',
@@ -60,18 +59,19 @@ function Events(props) {
 
 		getEvents(fromDate, toDate, searchText);
 	};
-
+	const handleClick = () => {
+		getEvents(state.fromDate, state.toDate, state.searchText);
+	};
 	useEffect(() => {
 		getEvents(state.fromDate, state.toDate, state.searchText);
 	}, []);
 
 	function getEvents(fromDate, toDate, searchText) {
 		dispatch({
-			type: 'isLoading',
+			type: 'loading',
 		});
 		EventService.search(fromDate, toDate, searchText)
 			.then((events) => {
-				console.log(events);
 				dispatch({
 					type: 'field',
 					fieldName: 'events',
@@ -87,10 +87,13 @@ function Events(props) {
 				})
 			);
 	}
-
-	console.log('State:', state);
 	const events = state.events.map((event) => (
-		<EventCard user={props.user} key={event._id} event={event} />
+		<EventCard
+			user={props.user}
+			key={event._id}
+			event={event}
+			onClick={handleClick}
+		/>
 	));
 	return (
 		<Container>
@@ -103,14 +106,24 @@ function Events(props) {
 				/>
 			</Row>
 			<Row className="mt-2">
-				{state.isLoading ? (
-					<Spinner animation="border" variant="success" size="lg" role="status">
-						<span className="sr-only">Carregant...</span>
-					</Spinner>
-				) : (
-					<CardDeck>{events}</CardDeck>
-				)}
+				<CardDeck>{events}</CardDeck>
 			</Row>
+			<Modal
+				show={state.isLoading}
+				aria-labelledby="contained-modal-title-vcenter"
+				centered
+			>
+				<Modal.Body>
+					<Container fluid className="d-flex flex-column align-items-center">
+						<Spinner
+							animation="border"
+							variant="success"
+							size="50px"
+							role="status"
+						></Spinner>
+					</Container>
+				</Modal.Body>
+			</Modal>
 		</Container>
 	);
 }

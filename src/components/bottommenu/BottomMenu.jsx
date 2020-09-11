@@ -9,7 +9,7 @@ function BottomMenu(props) {
 	const getNavLinkClass = (path) => {
 		let cssName = location.pathname === path ? 'active ' : '';
 		cssName +=
-			'd-flex flex-column justify-content-center align-items-center mr-4 ml-4 text-dark';
+			'd-flex flex-column justify-content-center align-items-center mr-4 ml-4 text-white';
 		return cssName;
 	};
 	const userLink = props.user ? (
@@ -21,17 +21,17 @@ function BottomMenu(props) {
 			roundedCircle
 		/>
 	) : (
-		<BsPersonSquare size="25px" />
+		<BsPersonSquare size="20px" />
 	);
 	return (
 		<Navbar fixed="bottom" bg="success">
 			<Nav className="justify-content-around ml-auto mr-auto">
 				<NavLink to="/" className={getNavLinkClass('/')}>
-					<BsHouseFill size="25px" />
+					<BsHouseFill size="20px" />
 					Inici
 				</NavLink>
 				<NavLink to="/map" className={getNavLinkClass('/map')}>
-					<BsGeoAlt size="25px" />
+					<BsGeoAlt size="20px" />
 					Mapa
 				</NavLink>
 				<NavLink to="/profile" className={getNavLinkClass('/login')}>

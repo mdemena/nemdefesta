@@ -63,7 +63,6 @@ export class EventService {
 			.then((response) => response.data);
 	};
 	search = (fromDate, toDate, searchText) => {
-		console.log(fromDate, toDate, searchText);
 		return this.service
 			.post('/', { fromDate, toDate, searchText })
 			.then((response) => response.data);

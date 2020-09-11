@@ -22,6 +22,12 @@ const profileReducer = (state, action) => {
 			const { alertMessages } = state;
 			alertMessages.push(action.alertMessage);
 			return { ...state, showAlert: true, alertMessages: alertMessages };
+		case 'resetAlert':
+			return {
+				...state,
+				showAlert: false,
+				alertMessages: [],
+			};
 		case 'closeAlert':
 			return { ...state, showAlert: false, alertMessages: [] };
 		case 'loading':
@@ -59,7 +65,7 @@ function ProfileSetup(props) {
 	};
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
-		const errMessages = [];
+		dispatch({ type: 'resetAlert' });
 		if (!state.name) {
 			dispatch({ type: 'alert', alertMessage: `Has d'indicar un nom` });
 		}

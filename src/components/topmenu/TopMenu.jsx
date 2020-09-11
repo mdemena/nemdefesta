@@ -6,8 +6,8 @@ function TopMenu() {
 	return (
 		<Navbar fixed="top" bg="success" expand="md">
 			<Navbar.Brand to="/" className="d-flex flex-row align-items-center">
-				<GiDandelionFlower />
-				<span className="ml-2">Nem De Festa !!</span>
+				<GiDandelionFlower className="text-white"/>
+				<span className="ml-2 text-white">Nem De Festa !!</span>
 			</Navbar.Brand>
 			{/* <Navbar.Toggle aria-controls="menu-nemdefesta" />
 			<Navbar.Collapse id="menu-nemdefesta">

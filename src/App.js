@@ -10,6 +10,8 @@ import Login from './components/auth/login/Login';
 import Signup from './components/auth/signup/Signup';
 import ProfileSetup from './components/auth/profile/ProfileSetup';
 import ProfileDetail from './components/auth/profile/ProfileDetail';
+import EventDetail from './components/events/EventDetail';
+import Map from './components/maps/Map';
 import './App.scss';
 
 require('dotenv').config();
@@ -37,11 +39,14 @@ function App() {
 	const { user } = state;
 
 	return (
-		<Container className="fill-window overflow-auto">
+		<Container className="fill-window overflow-auto pb-5">
 			<TopMenu />
 			<Switch>
 				<Route exact path="/">
 					<Events user={user} />
+				</Route>
+				<Route exact path="/map">
+					<Map user={user} />
 				</Route>
 				<Route path="/login">
 					<Login dispatch={dispatch} />
@@ -51,6 +56,12 @@ function App() {
 				</Route>
 				<Route path="/profile/:id">
 					<ProfileDetail />
+				</Route>
+				<Route exact path="/events">
+					<Events user={user} />
+				</Route>
+				<Route path="/events/:id">
+					<EventDetail user={user} />
 				</Route>
 				<ProtectedRoute
 					user={user}

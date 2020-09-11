@@ -19,6 +19,12 @@ const signupReducer = (state, action) => {
 			const { alertMessages } = state;
 			alertMessages.push(action.alertMessage);
 			return { ...state, showAlert: true, alertMessages: alertMessages };
+		case 'resetAlert':
+			return {
+				...state,
+				showAlert: false,
+				alertMessages: [],
+			};
 		case 'closeAlert':
 			return { ...state, showAlert: false, alertMessages: [] };
 		case 'loading':
@@ -56,6 +62,7 @@ function Signup(props) {
 
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
+		dispatch({ type: 'resetAlert' });
 		if (!state.name) {
 			dispatch({ type: 'alert', alertMessage: `Has d'indicar un nom` });
 		}
@@ -106,7 +113,6 @@ function Signup(props) {
 				state.password
 			)
 				.then((response) => {
-					console.log(response);
 					props.dispatch({ type: 'login', user: response });
 					history.push('/');
 				})
