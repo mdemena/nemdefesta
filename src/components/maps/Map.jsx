@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { GoogleMap, LoadScript, InfoWindow } from '@react-google-maps/api';
-import ExentInfoWindow from '../events/ExentInfoWindow';
+import EventInfoWindow from '../events/EventInfoWindow';
 
 function Map(props) {
 	const [center, setCenter] = useState({ lat: 0, lng: 0 });
-	const points = JSON.parse(sessionStorage.getItem('events'));
+	const points = JSON.parse(sessionStorage.getItem('events')) || [];
 
 	useEffect(() => {
 		if (points.length > 0) {
@@ -15,7 +15,7 @@ function Map(props) {
 		}
 	}, []);
 
-	const makers = points.map((elem, index) => (
+	const makers = points.map((elem) => (
 		<InfoWindow
 			key={elem._id}
 			position={{
@@ -23,7 +23,7 @@ function Map(props) {
 				lng: elem.location.gpsLocation.coordinates[1],
 			}}
 		>
-			<ExentInfoWindow event={elem} user={props.user} />
+			<EventInfoWindow event={elem} user={props.user} />
 		</InfoWindow>
 		// <Marker
 		// 	key={elem._id}
@@ -34,8 +34,6 @@ function Map(props) {
 		// />
 	));
 
-	console.log('GOOGLE_API_KEY', process.env.GOOGLE_API_KEY);
-	console.log('Center', center);
 	const containerStyle = {
 		minWidth: '100%',
 		width: '100%',
@@ -44,7 +42,7 @@ function Map(props) {
 		overflow: 'auto',
 	};
 	return (
-		<LoadScript googleMapsApiKey="AIzaSyDf8lFaNmy0tTkfhhBgiJHR4N_yO_8Sfps">
+		<LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
 			<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
 				{/* <MarkerClusterer>
 					{(clusterer) =>

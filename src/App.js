@@ -39,7 +39,7 @@ function App() {
 	const { user } = state;
 
 	return (
-		<Container className="fill-window overflow-auto mb-5">
+		<Container className="fill-window overflow-auto pb-5">
 			<TopMenu />
 			<Switch>
 				<Route exact path="/">

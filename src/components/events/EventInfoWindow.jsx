@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 require('dayjs/locale/es');
 
-function ExentInfoWindow(props) {
+function EventInfoWindow(props) {
 	const element = props.event;
 
 	return (
@@ -23,4 +23,4 @@ function ExentInfoWindow(props) {
 	);
 }
 
-export default ExentInfoWindow;
+export default EventInfoWindow;

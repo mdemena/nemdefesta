@@ -31,36 +31,24 @@ function StarIcon(props) {
 	const handleClose = () => {
 		setShowInfo(false);
 	};
-	const star = props.user ? (
+	const starIcon = props.user ? (
 		props.array.includes(props.user._id) ? (
-			<div
-				className="d-flex flex-row justify-content-between align-items-center"
-				onClick={handleClick}
-			>
-				<AiFillStar />
-				<Badge variant="light">¡Assistiràs!</Badge>
-			</div>
+			<AiFillStar />
 		) : (
-			<div
-				className="d-flex flex-row justify-content-between align-items-center"
-				onClick={handleClick}
-			>
-				<AiOutlineStar />
-				<Badge variant="light">Assistiràs?</Badge>
-			</div>
+			<AiOutlineStar />
 		)
 	) : (
-		<div
-			className="d-flex flex-row justify-content-between align-items-center"
-			onClick={handleClick}
-		>
-			<AiOutlineStar />
-			<Badge variant="light">Assistiràs?</Badge>
-		</div>
+		<AiOutlineStar />
 	);
 	return (
 		<div ref={ref}>
-			{star}
+			<div
+				className="d-flex flex-row justify-content-between align-items-center"
+				onClick={handleClick}
+			>
+				{starIcon}
+				<Badge variant="light">{props.array.length}</Badge>
+			</div>
 			<Overlay
 				show={showInfo}
 				target={target}

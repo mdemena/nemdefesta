@@ -21,17 +21,17 @@ function BottomMenu(props) {
 			roundedCircle
 		/>
 	) : (
-		<BsPersonSquare size="25px" />
+		<BsPersonSquare size="20px" />
 	);
 	return (
 		<Navbar fixed="bottom" bg="success">
 			<Nav className="justify-content-around ml-auto mr-auto">
 				<NavLink to="/" className={getNavLinkClass('/')}>
-					<BsHouseFill size="25px" />
+					<BsHouseFill size="20px" />
 					Inici
 				</NavLink>
 				<NavLink to="/map" className={getNavLinkClass('/map')}>
-					<BsGeoAlt size="25px" />
+					<BsGeoAlt size="20px" />
 					Mapa
 				</NavLink>
 				<NavLink to="/profile" className={getNavLinkClass('/login')}>

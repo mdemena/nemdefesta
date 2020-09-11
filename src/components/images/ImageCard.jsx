@@ -2,8 +2,6 @@ import React from 'react';
 import { Card } from 'react-bootstrap';
 import LikeIcon from '../social/LikeIcon';
 import DisLikeIcon from '../social/DisLikeIcon';
-import StarIcon from '../social/StarIcon';
-import CommentIcon from '../comments/CommentIcon';
 import dayjs from 'dayjs';
 require('dayjs/locale/es');
 
@@ -16,16 +14,15 @@ function ImageCard(props) {
 	return (
 		<Card className="bg-success text-white" border="success">
 			<Card.Body>
+				<Card.Title>{element.title}</Card.Title>
 				<Card.Img src={element.image} alt={element.title} />
-				<Card.ImgOverlay>
-					<Card.Title>{element.title}</Card.Title>
-					<Card.Text>{element.description}</Card.Text>
-					<Card.Text>
-						<small>
-							Publicada el {dayjs(element.createAt).format('DD-MM-YYYY')}
-						</small>
-					</Card.Text>
-				</Card.ImgOverlay>
+				<Card.Text>{element.description}</Card.Text>
+				<Card.Text>
+					<small>
+						Publicada el {dayjs(element.createAt).format('DD-MM-YYYY')} a les{' '}
+						{dayjs(element.createAt).format('HH:MM')}
+					</small>
+				</Card.Text>
 			</Card.Body>
 			<Card.Footer>
 				<div className="d-flex flex-row justify-content-around align-items-center">

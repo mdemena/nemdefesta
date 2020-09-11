@@ -32,7 +32,7 @@ function EventCard(props) {
 				<Card.Text>{element.description}</Card.Text>
 				<Card.Text>
 					<small>
-						Desdel {dayjs(element.fromDate).format('DD-MM-YYYY')} fins el{' '}
+						Des del {dayjs(element.fromDate).format('DD-MM-YYYY')} fins el{' '}
 						{dayjs(element.toDate).format('DD-MM-YYYY')}
 					</small>
 				</Card.Text>

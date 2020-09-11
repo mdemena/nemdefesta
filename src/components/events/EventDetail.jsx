@@ -10,11 +10,14 @@ import CommentCard from '../comments/CommentCard';
 import dayjs from 'dayjs';
 import ActivityCard from '../activities/ActivityCard';
 import ImageCard from '../images/ImageCard';
+import MapCard from '../maps/MapCard';
 require('dayjs/locale/es');
 
 function EventDetail(props) {
 	const { id } = useParams();
 	const [element, setElement] = useState({
+		location: { gpsLocation: { coordinates: [0, 0] } },
+		locations: [],
 		activities: [],
 		images: [],
 		likes: [],
@@ -43,6 +46,11 @@ function EventDetail(props) {
 			></ActivityCard>
 		</ListGroup.Item>
 	));
+	const activitiesMap = element.locations;
+	const activitiesMapCenter = {
+		lat: element.location.gpsLocation.coordinates[0],
+		lng: element.location.gpsLocation.coordinates[1],
+	};
 
 	const images = element.images.map((image) => (
 		<ListGroup.Item key={image._id} className="pl-0 pr-0">
@@ -61,7 +69,7 @@ function EventDetail(props) {
 					<Card.Title>{element.name}</Card.Title>
 					<Card.Text>{element.description}</Card.Text>
 					<Card.Text>
-						Desdel {dayjs(element.fromDate).format('DD-MM-YYYY')} fins el{' '}
+						Des del {dayjs(element.fromDate).format('DD-MM-YYYY')} fins el{' '}
 						{dayjs(element.toDate).format('DD-MM-YYYY')}
 					</Card.Text>
 				</Card.Body>
@@ -109,6 +117,20 @@ function EventDetail(props) {
 						</Card.Body>
 					</Accordion.Collapse>
 				</Card>
+				<Card>
+					<Accordion.Toggle as={Card.Header} eventKey="1">
+						Mapa de Localitzacions
+					</Accordion.Toggle>
+					<Accordion.Collapse eventKey="1">
+						<Card.Body>
+							<MapCard
+								center={activitiesMapCenter}
+								points={activitiesMap}
+								zoom={15}
+							/>
+						</Card.Body>
+					</Accordion.Collapse>
+				</Card>{' '}
 				<Card>
 					<Accordion.Toggle as={Card.Header} eventKey="2">
 						{element.images.length} Imatge/s
