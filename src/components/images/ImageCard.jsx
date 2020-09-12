@@ -12,13 +12,13 @@ function ImageCard(props) {
 	const handleClick = () => {
 		props.onClick();
 	};
-	const deleteIcon = () => {
-		return props.user._id === element._id ? (
+	const deleteIcon =
+		props.user && props.user._id === element.user._id ? (
 			<DeleteIcon type="image" id={element._id} onClick={handleClick} />
 		) : (
 			<></>
 		);
-	};
+
 	return (
 		<Card className="bg-success text-white" border="success">
 			<Card.Body>

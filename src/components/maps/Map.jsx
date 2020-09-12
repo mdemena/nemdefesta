@@ -4,7 +4,7 @@ import EventInfoWindow from '../events/EventInfoWindow';
 
 function Map(props) {
 	const [center, setCenter] = useState({ lat: 0, lng: 0 });
-	const points = JSON.parse(sessionStorage.getItem('events')) || [];
+	const points = JSON.parse(localStorage.getItem('events')) || [];
 
 	useEffect(() => {
 		if (points.length > 0) {

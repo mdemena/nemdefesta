@@ -285,6 +285,7 @@ function ProfileSetup(props) {
 						</Accordion.Collapse>
 					</Card>
 				</Accordion>
+				<hr />
 				<Button
 					type="submit"
 					className="btn btn-success w-100"

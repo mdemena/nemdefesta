@@ -32,8 +32,6 @@ function ActivityDetail(props) {
 		getActivity(id);
 	}, []);
 
-	console.log(element);
-
 	const handleClick = () => {
 		getActivity(id);
 	};

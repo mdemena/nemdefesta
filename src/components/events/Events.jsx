@@ -9,10 +9,7 @@ require('dayjs/locale/es');
 const eventsReducer = (state, action) => {
 	switch (action.type) {
 		case 'field':
-			sessionStorage.setItem(
-				action.fieldName,
-				JSON.stringify(action.fieldValue)
-			);
+			localStorage.setItem(action.fieldName, JSON.stringify(action.fieldValue));
 			return { ...state, [action.fieldName]: action.fieldValue };
 		case 'loading':
 			return { ...state, isLoading: true };
@@ -23,14 +20,14 @@ const eventsReducer = (state, action) => {
 	}
 };
 const initialState = {
-	searchText: JSON.parse(sessionStorage.getItem('searchText')) || '',
+	searchText: JSON.parse(localStorage.getItem('searchText')) || '',
 	fromDate:
-		JSON.parse(sessionStorage.getItem('fromDate')) ||
+		JSON.parse(localStorage.getItem('fromDate')) ||
 		dayjs().format('YYYY-MM-DD'),
 	toDate:
-		JSON.parse(sessionStorage.getItem('toDate')) ||
+		JSON.parse(localStorage.getItem('toDate')) ||
 		dayjs().add(1, 'month').format('YYYY-MM-DD'),
-	events: JSON.parse(sessionStorage.getItem('events')) || [],
+	events: JSON.parse(localStorage.getItem('events')) || [],
 	isLoading: false,
 	isShowing: false,
 	refresh: false,
