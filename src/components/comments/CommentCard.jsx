@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import Likes from '../social/LikeIcon';
-import DisLikes from '../social/DisLikeIcon';
+import Likes from '../icons/LikeIcon';
+import DisLikes from '../icons/DisLikeIcon';
+import DeleteIcon from '../icons/DeleteIcon';
 import ProfileLink from '../profile/ProfileLink';
 import dayjs from 'dayjs';
 
@@ -12,6 +13,14 @@ function CommentCard(props) {
 
 	const handleClick = () => {
 		props.onClick();
+	};
+
+	const deleteIcon = () => {
+		return props.user._id === element._id ? (
+			<DeleteIcon type="comment" id={element._id} onClick={handleClick} />
+		) : (
+			<></>
+		);
 	};
 	return (
 		<Card className="bg-success text-white" border="success">
@@ -41,6 +50,7 @@ function CommentCard(props) {
 						user={props.user}
 						onClick={handleClick}
 					/>
+					{deleteIcon}
 				</div>
 			</Card.Footer>
 		</Card>

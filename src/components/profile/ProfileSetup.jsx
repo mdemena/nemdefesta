@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import {
 	Container,
 	Button,
@@ -8,11 +8,20 @@ import {
 	Spinner,
 	Modal,
 	Alert,
+	Accordion,
+	Card,
+	ListGroup,
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Avatar from './Avatar';
 import UserService from '../../services/user/UserService';
 import AuthService from '../../services/auth/AuthService';
+import CommentCard from '../comments/CommentCard';
+import ActivityCard from '../activities/ActivityCard';
+import ImageCard from '../images/ImageCard';
+import { BiCommentDetail } from 'react-icons/bi';
+import { BsImages } from 'react-icons/bs';
+import { MdLocalActivity } from 'react-icons/md';
 
 const profileReducer = (state, action) => {
 	switch (action.type) {
@@ -52,17 +61,48 @@ function ProfileSetup(props) {
 		isLoading: false,
 		showAlert: false,
 		alertMessages: [],
+		activities: [],
+		comments: [],
+		images: [],
 	};
 	const [state, dispatch] = useReducer(profileReducer, initialState);
 	const history = useHistory();
+
+	const getProfileData = async () => {
+		dispatch({
+			type: 'field',
+			fieldName: 'activities',
+			fieldValue: await UserService.activities(props.user._id),
+		});
+		dispatch({
+			type: 'field',
+			fieldName: 'comments',
+			fieldValue: await UserService.comments(props.user._id),
+		});
+		dispatch({
+			type: 'field',
+			fieldName: 'images',
+			fieldValue: await UserService.images(props.user._id),
+		});
+	};
+	useEffect(() => {
+		getProfileData();
+	}, []);
+
+	const handleClick = () => {
+		getProfileData();
+	};
+
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		dispatch({ type: 'field', fieldName: name, fieldValue: value });
 	};
+
 	const handleImage = (user) => {
 		dispatch({ type: 'field', fieldName: 'image', fieldValue: user.image });
 		props.callback({ type: 'login', user: user });
 	};
+
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
 		dispatch({ type: 'resetAlert' });
@@ -113,6 +153,7 @@ function ProfileSetup(props) {
 			dispatch({ type: 'notLoading' });
 		}
 	};
+
 	const handleLogout = async (image) => {
 		await AuthService.logout();
 		props.callback({ type: 'logout' });
@@ -121,6 +162,34 @@ function ProfileSetup(props) {
 
 	const errorsMessage = state.alertMessages.map((err, index) => (
 		<li key={index}>{err}</li>
+	));
+	const activityList = state.activities.map((activity) => (
+		<ListGroup.Item key={activity._id} className="pl-0 pr-0">
+			<ActivityCard
+				user={props.user}
+				activity={activity}
+				onClick={handleClick}
+			></ActivityCard>
+		</ListGroup.Item>
+	));
+
+	const commentList = state.comments.map((comment) => (
+		<ListGroup.Item key={comment._id} className="pl-0 pr-0">
+			<CommentCard
+				user={props.user}
+				comment={comment}
+				onClick={handleClick}
+			></CommentCard>
+		</ListGroup.Item>
+	));
+	const imageList = state.images.map((image) => (
+		<ListGroup.Item key={image._id} className="pl-0 pr-0">
+			<ImageCard
+				user={props.user}
+				image={image}
+				onClick={handleClick}
+			></ImageCard>
+		</ListGroup.Item>
 	));
 
 	return (
@@ -175,6 +244,47 @@ function ProfileSetup(props) {
 						aria-describedby="name-email"
 					/>
 				</InputGroup>
+				<Accordion className="mt-2 w-100">
+					<Card>
+						<Accordion.Toggle as={Card.Header} eventKey="0">
+							<div className="d-flex flex-row justify-content-between align-items-center">
+								Ha realitzat {state.comments.length} comentaris
+								<BiCommentDetail size="20px" />
+							</div>
+						</Accordion.Toggle>
+						<Accordion.Collapse eventKey="0">
+							<Card.Body>
+								<ListGroup variant="flush">{commentList}</ListGroup>
+							</Card.Body>
+						</Accordion.Collapse>
+					</Card>
+					<Card>
+						<Accordion.Toggle as={Card.Header} eventKey="1">
+							<div className="d-flex flex-row justify-content-between align-items-center">
+								Ha publicat {state.images.length} imatges
+								<BsImages size="20px" />
+							</div>
+						</Accordion.Toggle>
+						<Accordion.Collapse eventKey="1">
+							<Card.Body>
+								<ListGroup variant="flush">{imageList}</ListGroup>
+							</Card.Body>
+						</Accordion.Collapse>
+					</Card>
+					<Card>
+						<Accordion.Toggle as={Card.Header} eventKey="2">
+							<div className="d-flex flex-row justify-content-between align-items-center">
+								Assitirà a {state.activities.length} activitats
+								<MdLocalActivity size="20px" />
+							</div>
+						</Accordion.Toggle>
+						<Accordion.Collapse eventKey="2">
+							<Card.Body>
+								<ListGroup variant="flush">{activityList}</ListGroup>
+							</Card.Body>
+						</Accordion.Collapse>
+					</Card>
+				</Accordion>
 				<Button
 					type="submit"
 					className="btn btn-success w-100"
