@@ -9,8 +9,8 @@ import {
 	Button,
 } from 'react-bootstrap';
 
-import UserService from '../../../services/user/UserService';
-import AuthService from '../../../services/auth/AuthService';
+import UserService from '../../services/user/UserService';
+import AuthService from '../../services/auth/AuthService';
 
 const avatarReducer = (state, action) => {
 	switch (action.type) {

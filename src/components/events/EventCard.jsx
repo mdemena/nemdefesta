@@ -20,13 +20,13 @@ function EventCard(props) {
 	};
 	return (
 		<Card className="bg-success text-white" border="success">
-			<Card.Img
+			{props.showImage ? <Card.Img
 				variant="top"
 				src={element.image}
 				alt={element.name}
 				className="mw-100"
 				onClick={() => handleDetail(element._id)}
-			/>
+			/>:<></>}
 			<Card.Body onClick={() => handleDetail(element._id)}>
 				<Card.Title>{element.name}</Card.Title>
 				<Card.Text>{element.description}</Card.Text>

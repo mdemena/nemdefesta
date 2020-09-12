@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Accordion, Card, ListGroup } from 'react-bootstrap';
-import EventService from '../../services/event/EventService';
+import ActivityService from '../../services/activity/ActivityService';
 import CommentCard from '../comments/CommentCard';
 import ActivityCard from '../activities/ActivityCard';
-import ImageCard from '../images/ImageCard';
 import MapCard from '../maps/MapCard';
-import EventCard from './EventCard';
+import ImageCard from '../images/ImageCard';
 import { BiCommentDetail } from 'react-icons/bi';
 import { BsGeo, BsImages } from 'react-icons/bs';
-import { MdLocalActivity } from 'react-icons/md';
+
+require('dayjs/locale/es');
 
 const initialState = {
 	location: { gpsLocation: { coordinates: [0, 0] } },
-	locations: [],
-	activities: [],
 	images: [],
 	likes: [],
 	unlikes: [],
@@ -22,35 +20,22 @@ const initialState = {
 	attendees: [],
 };
 
-function EventDetail(props) {
+function ActivityDetail(props) {
 	const { id } = useParams();
 	const [element, setElement] = useState(initialState);
 
-	const getEvent = (id) => {
-		EventService.get(id).then((response) => setElement(response));
+	const getActivity = (id) => {
+		ActivityService.get(id).then((response) => setElement(response));
 	};
 
 	useEffect(() => {
-		getEvent(id);
+		getActivity(id);
 	}, []);
 
+	console.log(element);
+
 	const handleClick = () => {
-		getEvent(id);
-	};
-	const activities = element.activities.map((activity) => (
-		<ListGroup.Item key={activity._id} className="pl-0 pr-0">
-			<ActivityCard
-				user={props.user}
-				activity={activity}
-				onClick={handleClick}
-				showLocation
-			></ActivityCard>
-		</ListGroup.Item>
-	));
-	const activitiesMap = element.locations;
-	const activitiesMapCenter = {
-		lat: element.location.gpsLocation.coordinates[0],
-		lng: element.location.gpsLocation.coordinates[1],
+		getActivity(id);
 	};
 	const comments = element.comments.map((comment) => (
 		<ListGroup.Item key={comment._id} className="pl-0 pr-0">
@@ -61,6 +46,7 @@ function EventDetail(props) {
 			></CommentCard>
 		</ListGroup.Item>
 	));
+
 	const images = element.images.map((image) => (
 		<ListGroup.Item key={image._id} className="pl-0 pr-0">
 			<ImageCard
@@ -70,41 +56,32 @@ function EventDetail(props) {
 			></ImageCard>
 		</ListGroup.Item>
 	));
-
+	const activityMapCenter = {
+		lat: element.location.gpsLocation.coordinates[0],
+		lng: element.location.gpsLocation.coordinates[1],
+	};
+	const activityPoints = [element.location];
 	return (
 		<>
-			<EventCard
+			<ActivityCard
 				user={props.user}
-				event={element}
-				showImage={false}
+				activity={element}
 				onClick={handleClick}
-			/>
-			<Accordion defaultActiveKey="0" className="mt-2">
-				<Card>
-					<Accordion.Toggle as={Card.Header} eventKey="0">
-						<div className="d-flex flex-row justify-content-between align-items-center">
-							{element.activities.length} Activitats
-							<MdLocalActivity size="20px" />
-						</div>
-					</Accordion.Toggle>
-					<Accordion.Collapse eventKey="0">
-						<Card.Body>
-							<ListGroup variant="flush">{activities}</ListGroup>
-						</Card.Body>
-					</Accordion.Collapse>
-				</Card>
+				showLocation={false}
+			></ActivityCard>
+			<Accordion defaultActiveKey="1" className="mt-2">
 				<Card>
 					<Accordion.Toggle as={Card.Header} eventKey="1">
 						<div className="d-flex flex-row justify-content-between align-items-center">
-							Localitzacions
+							On es celebra?
 							<BsGeo size="20px" />
 						</div>
 					</Accordion.Toggle>
 					<Accordion.Collapse eventKey="1">
 						<Card.Body>
 							<MapCard
-								center={activitiesMapCenter}
-								points={activitiesMap}
+								center={activityMapCenter}
+								points={activityPoints}
 								zoom={15}
 							/>
 						</Card.Body>
@@ -113,7 +90,7 @@ function EventDetail(props) {
 				<Card>
 					<Accordion.Toggle as={Card.Header} eventKey="2">
 						<div className="d-flex flex-row justify-content-between align-items-center">
-							{element.comments.length} Comentaris
+							S'han realizat {element.comments.length} comentaris
 							<BiCommentDetail size="20px" />
 						</div>
 					</Accordion.Toggle>
@@ -126,7 +103,7 @@ function EventDetail(props) {
 				<Card>
 					<Accordion.Toggle as={Card.Header} eventKey="3">
 						<div className="d-flex flex-row justify-content-between align-items-center">
-							{element.images.length} Imatges
+							Tenim {element.images.length} imatges
 							<BsImages size="20px" />
 						</div>
 					</Accordion.Toggle>
@@ -141,4 +118,4 @@ function EventDetail(props) {
 	);
 }
 
-export default EventDetail;
+export default ActivityDetail;

@@ -38,6 +38,14 @@ export class ActivityService {
 			.post('/', { fromDate, toDate, searchText })
 			.then((response) => response.data);
 	};
+	listOfEvent = (id) => {
+		return this.service.get(`/event/${id}`).then((response) => response.data);
+	};
+	listOfAttendee = (id) => {
+		return this.service
+			.get(`/attendee/${id}`)
+			.then((response) => response.data);
+	};
 
 	like = (id) => {
 		return this.service.patch(`/like/${id}`).then((response) => response.data);

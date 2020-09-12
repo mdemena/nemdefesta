@@ -11,8 +11,8 @@ import {
 } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import Avatar from './Avatar';
-import UserService from '../../../services/user/UserService';
-import AuthService from '../../../services/auth/AuthService';
+import UserService from '../../services/user/UserService';
+import AuthService from '../../services/auth/AuthService';
 
 const profileReducer = (state, action) => {
 	switch (action.type) {
