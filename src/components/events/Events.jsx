@@ -1,5 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-import { Container, Row, Modal, Spinner, CardDeck } from 'react-bootstrap';
+import { Container, Row, Spinner, CardDeck } from 'react-bootstrap';
 import SearchBox from '../searchbox/SearchBox';
 import EventService from '../../services/event/EventService';
 import EventCard from './EventCard';
@@ -93,8 +93,24 @@ function Events(props) {
 			key={event._id}
 			event={event}
 			onClick={handleClick}
+			showImage
 		/>
 	));
+	if (state.isLoading) {
+		return (
+			<Container
+				fluid
+				className="fill-window d-flex flex-column justify-content-center align-items-center"
+			>
+				<Spinner
+					animation="border"
+					variant="success"
+					size="50px"
+					role="status"
+				></Spinner>
+			</Container>
+		);
+	}
 	return (
 		<Container>
 			<Row>
@@ -108,22 +124,6 @@ function Events(props) {
 			<Row className="mt-2">
 				<CardDeck>{events}</CardDeck>
 			</Row>
-			<Modal
-				show={state.isLoading}
-				aria-labelledby="contained-modal-title-vcenter"
-				centered
-			>
-				<Modal.Body>
-					<Container fluid className="d-flex flex-column align-items-center">
-						<Spinner
-							animation="border"
-							variant="success"
-							size="50px"
-							role="status"
-						></Spinner>
-					</Container>
-				</Modal.Body>
-			</Modal>
 		</Container>
 	);
 }

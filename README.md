@@ -1,4 +1,4 @@
-# Nem De Festa '!!!' (Server edition)
+# Nem De Festa '!!!'
 
 ## Developers
 
@@ -29,19 +29,20 @@ An app where users can enjoy experience in local events/parties in catalonia, in
 - **login** - As a user I want to be able to log in on the application so that I can get back to my account.
 - **logout** - As a user I want to be able to log out from the application so that I can make sure no one will access my account.
 - **profile** - As a user I want view and update all information refered to me. Can upload an avatar, view my interactions (Comments, Assitance, etc..)
-- **event create** - As a user I want create a new local event/party.
-- **location event create** - As a user I want I want create a new shared location for activitis in a local event/party.
-- **activity create** - As a user I want I want create a new activity in a local event/party.
 
 ## Backlog
 
 List of other features outside of the MVPs scope
 
-Photos:
+Backoffice:
+As an user logged, can manage events, locations of events, activities, etc..
 
-- User can upload images for an event or activity.
+- User can create/edit/delete events
+- User can create/edit/delete locations
+- User can create/edit/delete actvities
 
 Competitions:
+
 In some towns like Granollers or Sant Celoni, during local event/party it plays a competition between 2 or more teams (Blanc and Blaus in Granollers, Montsenys and Montnegres in Sant Celoni, etc.)
 
 - Set teams for local event/party competition.
@@ -58,9 +59,11 @@ Push Notifications:
 
 ## Routes
 
-| Method | URL             | Description                        |
-| ------ | --------------- | ---------------------------------- |
-| POST   | /api/auth/login | Return User data if user logged in |
+| Method | URL              | Description                                             |
+| ------ | ---------------- | ------------------------------------------------------- |
+| GET    | /api/auth/google | Return User data if user logged in using Google Account |
+| POST   | /api/auth/login  | Return User data if user logged in                      |
+
 ```
 body:
     - email
@@ -71,6 +74,7 @@ body:
 | ------ | ---------------- | ----------------------------------------------- |
 | POST   | /api/auth/logout | Logout.                                         |
 | POST   | /api/auth/signup | Add user and return user data if user signup in |
+
 ```
 body:
     - email
@@ -83,6 +87,7 @@ body:
 | GET    | /api/user/ | Return User data      |
 | DELETE | /api/user/ | Delete User           |
 | PUT    | /api/user/ | Update User data info |
+
 ```
 body:
     - email
@@ -92,6 +97,7 @@ body:
 | Method | URL              | Description       |
 | ------ | ---------------- | ----------------- |
 | PATCH  | /api/user/upload | Update User image |
+
 ```
 body:
     - image
@@ -100,6 +106,7 @@ body:
 | Method | URL                     | Description                         |
 | ------ | ----------------------- | ----------------------------------- |
 | POST   | /api/user/checkusername | Check if username exist in database |
+
 ```
 body:
     - username
@@ -108,6 +115,7 @@ body:
 | Method | URL                  | Description                      |
 | ------ | -------------------- | -------------------------------- |
 | POST   | /api/user/checkemail | Check if email exist in database |
+
 ```
 body:
     - email
@@ -116,6 +124,7 @@ body:
 | Method | URL          | Description                            |
 | ------ | ------------ | -------------------------------------- |
 | POST   | /api/events/ | Return events list match filter params |
+
 ```
 body:
     - fromDate
@@ -130,6 +139,7 @@ body:
 | ------ | ---------------- | ------------------------------------------------------------ |
 | GET    | /api/events/:id  | Return event details: Event data, activities, comments, etc. |
 | POST   | /api/events/add/ | Create a new event and return event details: Event data      |
+
 ```
 body:
     - name
@@ -144,6 +154,7 @@ body:
 | ------ | --------------- | ------------------------------------------------------------------------ |
 | DELETE | /api/events/:id | Delete event and all info related, then return event details: Event data |
 | PUT    | /api/events/:id | Update event info and return event details: Event data                   |
+
 ```
 body:
     - name
@@ -156,6 +167,7 @@ body:
 | Method | URL                    | Description        |
 | ------ | ---------------------- | ------------------ |
 | PATCH  | /api/events/upload/:id | Update event image |
+
 ```
 body:
     - image
@@ -164,6 +176,7 @@ body:
 | Method | URL                   | Description                             |
 | ------ | --------------------- | --------------------------------------- |
 | PATCH  | /api/events/image/:id | Add an image to image list for an event |
+
 ```
 body:
     - title
@@ -180,6 +193,7 @@ body:
 | GET    | /api/locations/:id       | Return location details: Location data, etc.                                 |
 | GET    | /api/locations/event/:id | Return a loaction list for an Event.                                         |
 | POST   | /api/locations/          | Create a new location event and return location event details: Location data |
+
 ```
 body:
     - name
@@ -194,6 +208,7 @@ body:
 | ------ | ------------------ | --------------------------------------------------------------- |
 | DELETE | /api/locations/:id | Delete location, then return location details: Location data    |
 | PUT    | /api/locations/:id | Update location info and return location details: Location data |
+
 ```
 body:
     - name
@@ -206,6 +221,7 @@ body:
 | Method | URL              | Description                                |
 | ------ | ---------------- | ------------------------------------------ |
 | POST   | /api/activities/ | Return activities list match filter params |
+
 ```
 body:
     - fromDate
@@ -221,6 +237,7 @@ body:
 | GET    | /api/activities/event/:id | Return activities list from an eventid put in params.                       |
 | GET    | /api/activities/:id       | Return activity details: Activity data, comments, etc.                      |
 | POST   | /api/activities/add/:id   | Create a new activity in a event and return activity details: Activity data |
+
 ```
 body:
     - name
@@ -235,6 +252,7 @@ body:
 | ------ | ------------------- | --------------------------------------------------------------------------------- |
 | DELETE | /api/activities/:id | Delete activity and all info related, then return activity details: Activity data |
 | PUT    | /api/activities/:id | Update activity info and return activity details: Activity data                   |
+
 ```
 body:
     - name
@@ -247,6 +265,7 @@ body:
 | Method | URL                      | Description           |
 | ------ | ------------------------ | --------------------- |
 | PATCH  | /api/activity/upload/:id | Update activity image |
+
 ```
 body:
     - image
@@ -255,6 +274,7 @@ body:
 | Method | URL                     | Description                                |
 | ------ | ----------------------- | ------------------------------------------ |
 | PATCH  | /api/activity/image/:id | Add an image to image list for an activity |
+
 ```
 body:
     - title
@@ -275,6 +295,7 @@ body:
 | GET    | /api/comments/activity/:id | Return comments list from an activity.                                                |
 | GET    | /api/comments/:id          | Return comment details: Comment data, likes, etc.                                     |
 | POST   | /api/comments/:id          | Create a new activity in a event or activity and return comment details: Comment data |
+
 ```
 body:
     - title
@@ -287,6 +308,7 @@ body:
 | ------ | ----------------- | ------------------------------------------------------------- |
 | DELETE | /api/comments/:id | Delete comment, then return comments details: Comments data   |
 | PUT    | /api/comments/:id | Update comments info and return comment details: Comment data |
+
 ```
 body:
     - title
@@ -302,6 +324,7 @@ body:
 | GET    | /api/images/activity/:id | Return images list from an activity.                                               |
 | GET    | /api/images/:id          | Return image details: Image data, likes, etc.                                      |
 | POST   | /api/images/:id          | Create a new image in a event or activity and return comment details: Comment data |
+
 ```
 body:
     - title
@@ -315,6 +338,7 @@ body:
 | ------ | --------------- | ------------------------------------------------------ |
 | DELETE | /api/images/:id | Delete image, then return imge details: Image data     |
 | PUT    | /api/images/:id | Update image info and return image details: Image data |
+
 ```
 body:
     - title
@@ -416,7 +440,7 @@ Image model
 
 [Wireframes](https://excalidraw.com/#json=6310275766550528,jC9GmdLS5-t-SHJT2pUBkw)
 
-### Notion
+### Scrum Board
 
 [Notion Scrum Board](https://www.notion.so/mdemena/da39d5bb8fba483eb1eabf75224c91c5?v=53e3d39586de4b6ba4b35b7c6f8efae5)
 
@@ -424,6 +448,13 @@ Image model
 
 [App Repository Link](https://github.com/mdemena/nemdefesta)
 [Server Repository Link](https://github.com/mdemena/nemdefesta-server)
+
+### DEV Environment
+
+[App Deploy Link]('https://dev.nemdefesta.cat/')
+[Server Deploy Link]('https://server-dev.nemdefesta.cat/')
+
+### PRO Environment
 
 [App Deploy Link]('https://www.nemdefesta.cat/')
 [Server Deploy Link]('https://server.nemdefesta.cat/')

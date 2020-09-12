@@ -37,6 +37,22 @@ export class UserService {
 			.then((response) => response.status)
 			.catch((error) => error.status);
 	};
+	events = (id) => {
+		return this.service.get(`/events/${id}`).then((response) => response.data);
+	};
+	activities = (id) => {
+		return this.service
+			.get(`/activities/${id}`)
+			.then((response) => response.data);
+	};
+	comments = (id) => {
+		return this.service
+			.get(`/comments/${id}`)
+			.then((response) => response.data);
+	};
+	images = (id) => {
+		return this.service.get(`/images/${id}`).then((response) => response.data);
+	};
 }
 const userService = new UserService();
 

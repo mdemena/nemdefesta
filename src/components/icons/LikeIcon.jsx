@@ -44,6 +44,7 @@ function LikeIcon(props) {
 			<div
 				className="d-flex flex-row justify-content-between align-items-center"
 				onClick={handleClick}
+				alt="M'agrada"
 			>
 				<AiFillLike />
 				<Badge variant="light">{props.quantity}</Badge>

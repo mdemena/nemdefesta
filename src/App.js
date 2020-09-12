@@ -8,11 +8,12 @@ import ProtectedRoute from './components/auth/protectedroute/ProtectedRoute';
 import Events from './components/events/Events';
 import Login from './components/auth/login/Login';
 import Signup from './components/auth/signup/Signup';
-import ProfileSetup from './components/auth/profile/ProfileSetup';
-import ProfileDetail from './components/auth/profile/ProfileDetail';
+import ProfileSetup from './components/profile/ProfileSetup';
+import ProfileDetail from './components/profile/ProfileDetail';
 import EventDetail from './components/events/EventDetail';
 import Map from './components/maps/Map';
 import './App.scss';
+import ActivityDetail from './components/activities/ActivityDetail';
 
 require('dotenv').config();
 
@@ -54,14 +55,15 @@ function App() {
 				<Route path="/signup">
 					<Signup dispatch={dispatch} />
 				</Route>
-				<Route path="/profile/:id">
-					<ProfileDetail />
-				</Route>
+				<Route path="/profile/:id" component={ProfileDetail}></Route>
 				<Route exact path="/events">
 					<Events user={user} />
 				</Route>
 				<Route path="/events/:id">
 					<EventDetail user={user} />
+				</Route>
+				<Route path="/activities/:id">
+					<ActivityDetail user={user} />
 				</Route>
 				<ProtectedRoute
 					user={user}

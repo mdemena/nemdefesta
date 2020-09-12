@@ -40,6 +40,9 @@ export class CommentService {
 			.get(`/activity/${id}`)
 			.then((response) => response.data);
 	};
+	listOfUser = (id) => {
+		return this.service.get(`/user/${id}`).then((response) => response.data);
+	};
 
 	like = (id) => {
 		return this.service.patch(`/like/${id}`).then((response) => response.data);

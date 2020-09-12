@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import LikeIcon from '../social/LikeIcon';
-import DisLikeIcon from '../social/DisLikeIcon';
-import StarIcon from '../social/StarIcon';
+import LikeIcon from '../icons/LikeIcon';
+import DisLikeIcon from '../icons/DisLikeIcon';
+import StarIcon from '../icons/StarIcon';
 import CommentIcon from '../comments/CommentIcon';
 import dayjs from 'dayjs';
 require('dayjs/locale/es');
@@ -20,13 +20,17 @@ function EventCard(props) {
 	};
 	return (
 		<Card className="bg-success text-white" border="success">
-			<Card.Img
-				variant="top"
-				src={element.image}
-				alt={element.name}
-				className="mw-100"
-				onClick={() => handleDetail(element._id)}
-			/>
+			{props.showImage ? (
+				<Card.Img
+					variant="top"
+					src={element.image}
+					alt={element.name}
+					className="mw-100"
+					onClick={() => handleDetail(element._id)}
+				/>
+			) : (
+				<></>
+			)}
 			<Card.Body onClick={() => handleDetail(element._id)}>
 				<Card.Title>{element.name}</Card.Title>
 				<Card.Text>{element.description}</Card.Text>

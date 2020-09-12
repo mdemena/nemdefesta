@@ -1,8 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
-import LikeIcon from '../social/LikeIcon';
-import DisLikeIcon from '../social/DisLikeIcon';
-import StarIcon from '../social/StarIcon';
+import LikeIcon from '../icons/LikeIcon';
+import DisLikeIcon from '../icons/DisLikeIcon';
+import StarIcon from '../icons/StarIcon';
 import CommentIcon from '../comments/CommentIcon';
 import LocationIcon from '../locations/LocationIcon';
 import dayjs from 'dayjs';
@@ -10,33 +11,38 @@ require('dayjs/locale/es');
 
 function ActivityCard(props) {
 	const element = props.activity;
+	const history = useHistory();
 
 	const handleClick = () => {
 		props.onClick();
 	};
-	const location = element.location ? (
-		<LocationIcon location={element.location} />
-	) : (
-		<></>
-	);
+	const location =
+		element.location && props.showLocation ? (
+			<LocationIcon location={element.location} />
+		) : (
+			<></>
+		);
+	const handleDetail = (id) => {
+		history.push('/activities/' + id);
+	};
 	return (
 		<Card className="bg-success text-white" border="success">
-			<Card.Body>
+			<Card.Body onClick={() => handleDetail(element._id)}>
 				<Card.Title>{element.name}</Card.Title>
 				<Card.Text>{element.description}</Card.Text>
-				<Card.Text>
-					<div>
+				<Card.Text className="d-flex flex-column">
+					<span>
 						<small>
 							Des del {dayjs(element.fromDate).format('DD-MM-YYYY')} a les{' '}
 							{dayjs(element.fromDate).format('HH:MM')}
 						</small>
-					</div>
-					<div>
+					</span>
+					<span>
 						<small>
 							Fins el {dayjs(element.toDate).format('DD-MM-YYYY')} a les{' '}
 							{dayjs(element.toDate).format('HH:MM')}
 						</small>
-					</div>
+					</span>
 				</Card.Text>
 			</Card.Body>
 			<Card.Footer>

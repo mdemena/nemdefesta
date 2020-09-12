@@ -1,7 +1,8 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import LikeIcon from '../social/LikeIcon';
-import DisLikeIcon from '../social/DisLikeIcon';
+import LikeIcon from '../icons/LikeIcon';
+import DisLikeIcon from '../icons/DisLikeIcon';
+import DeleteIcon from '../icons/DeleteIcon';
 import dayjs from 'dayjs';
 require('dayjs/locale/es');
 
@@ -10,6 +11,13 @@ function ImageCard(props) {
 
 	const handleClick = () => {
 		props.onClick();
+	};
+	const deleteIcon = () => {
+		return props.user._id === element._id ? (
+			<DeleteIcon type="image" id={element._id} onClick={handleClick} />
+		) : (
+			<></>
+		);
 	};
 	return (
 		<Card className="bg-success text-white" border="success">
@@ -40,6 +48,7 @@ function ImageCard(props) {
 						user={props.user}
 						onClick={handleClick}
 					/>
+					{deleteIcon}
 				</div>
 			</Card.Footer>
 		</Card>

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import Likes from '../social/LikeIcon';
-import DisLikes from '../social/DisLikeIcon';
+import Likes from '../icons/LikeIcon';
+import DisLikes from '../icons/DisLikeIcon';
+import DeleteIcon from '../icons/DeleteIcon';
+import ProfileLink from '../profile/ProfileLink';
 import dayjs from 'dayjs';
+
 require('dayjs/locale/es');
 
 function CommentCard(props) {
@@ -12,6 +14,14 @@ function CommentCard(props) {
 	const handleClick = () => {
 		props.onClick();
 	};
+
+	const deleteIcon = () => {
+		return props.user._id === element._id ? (
+			<DeleteIcon type="comment" id={element._id} onClick={handleClick} />
+		) : (
+			<></>
+		);
+	};
 	return (
 		<Card className="bg-success text-white" border="success">
 			<Card.Body>
@@ -19,11 +29,8 @@ function CommentCard(props) {
 				<Card.Text>{element.description}</Card.Text>
 				<Card.Text>
 					<small>
-						Comentari de:{' '}
-						<Link to={'/profile/' + element.user._id}>
-							{element.user.username}
-						</Link>{' '}
-						realitzat el {dayjs(element.createdAt).format('DD-MM-YYYY HH:MM')}
+						Comentari de <ProfileLink profile={element.user} /> realitzat el{' '}
+						{dayjs(element.createdAt).format('DD-MM-YYYY HH:MM')}
 					</small>
 				</Card.Text>
 			</Card.Body>
@@ -43,6 +50,7 @@ function CommentCard(props) {
 						user={props.user}
 						onClick={handleClick}
 					/>
+					{deleteIcon}
 				</div>
 			</Card.Footer>
 		</Card>
