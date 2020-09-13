@@ -59,7 +59,7 @@ function ImagesAccordion(props) {
 			</Card>
 			<Modal show={showModal} onHide={handleClose}>
 				<Modal.Header closeButton>
-					<Modal.Title>Nou comentari</Modal.Title>
+					<Modal.Title>Nova imatge</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<ImageForm

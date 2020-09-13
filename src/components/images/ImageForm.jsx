@@ -114,20 +114,24 @@ function ImageForm(props) {
 					aria-describedby="description-text"
 				/>
 			</InputGroup>
-			<InputGroup className="mb-3">
-				<InputGroup.Prepend>
-					<InputGroup.Text id="image-text">Fitxer</InputGroup.Text>
-				</InputGroup.Prepend>
-				<FormControl
-					id="image"
-					name="image"
-					type="file"
-					onChange={handleFileChange}
-					placeholder="Fitxer"
-					aria-label="Fitxer"
-					aria-describedby="image-text"
-				/>
-			</InputGroup>
+			<div className="input-group mb-3">
+				<div className="input-group-prepend">
+					<span className="input-group-text" id="label-imatge">
+						Fitxer
+					</span>
+				</div>
+				<div className="custom-file">
+					<input
+						type="file"
+						id="image"
+						aria-describedby="label-imatge"
+						onChange={handleFileChange}
+					/>
+					<label className="custom-file-label" htmlFor="image">
+						Seleccciona ...
+					</label>
+				</div>
+			</div>
 			<Button
 				type="submit"
 				className="btn btn-success w-100"
