@@ -38,15 +38,19 @@ const initialState = {
 
 function App() {
 	const [state, dispatch] = useReducer(appReducer, initialState);
+	const { user } = state;
 
 	useEffect(() => {
 		AuthService.loggedin()
 			.then((response) => {
-				if (!response) dispatch({ type: 'logout' });
+				if (!response) {
+					dispatch({ type: 'logout' });
+				} else if (!user) {
+					AuthService.logout().then(() => dispatch({ type: 'logout' }));
+				}
 			})
 			.catch((err) => dispatch({ type: 'logout' }));
 	}, []);
-	const { user } = state;
 
 	return (
 		<Container className="fill-window overflow-auto pb-5">
