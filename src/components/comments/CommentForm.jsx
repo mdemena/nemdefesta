@@ -1,14 +1,5 @@
 import React, { useReducer } from 'react';
-import {
-	Container,
-	Button,
-	Form,
-	FormControl,
-	InputGroup,
-	Spinner,
-	Modal,
-	Alert,
-} from 'react-bootstrap';
+import { Button, Form, FormControl, InputGroup, Alert } from 'react-bootstrap';
 import CommentService from '../../services/comment/CommentService';
 
 const commentReducer = (state, action) => {
@@ -36,17 +27,22 @@ const commentReducer = (state, action) => {
 	}
 };
 
-function CommentAdd(props) {
+function CommentForm(props) {
 	const initialState = {
 		title: '',
 		description: '',
 		user: props.user._id,
+		showAlert: false,
+		alertMessages: [],
+		isLoading: false,
 	};
-	const [state, dispatch] = useReducer(profileReducer, initialState);
+	const [state, dispatch] = useReducer(commentReducer, initialState);
+
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		dispatch({ type: 'field', fieldName: name, fieldValue: value });
 	};
+
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
 		dispatch({ type: 'resetAlert' });
@@ -55,9 +51,15 @@ function CommentAdd(props) {
 		}
 		if (!state.description) {
 			dispatch({ type: 'alert', alertMessage: `Has d'introduir un comentari` });
+		}
 		if (!state.showAlert) {
 			dispatch({ type: 'loading' });
-			CommentService.create(state.title, state.description, props.event, props.activity )
+			CommentService.create(
+				state.title,
+				state.description,
+				props.event,
+				props.activity
+			)
 				.then((response) => {
 					props.onClick();
 				})
@@ -68,8 +70,12 @@ function CommentAdd(props) {
 					})
 				);
 			dispatch({ type: 'notLoading' });
+			props.onClick();
 		}
 	};
+	const errorsMessage = state.alertMessages.map((err, index) => (
+		<li key={index}>{err}</li>
+	));
 	return (
 		<Form onSubmit={handleFormSubmit} className="w-100">
 			<InputGroup className="mb-3">
@@ -109,7 +115,6 @@ function CommentAdd(props) {
 			>
 				{state.isLoading ? 'Publicant ...' : 'Publicar'}
 			</Button>
-
 			<Alert
 				className="mt-2"
 				variant="danger"
@@ -124,4 +129,4 @@ function CommentAdd(props) {
 	);
 }
 
-export default CommentAdd;
+export default CommentForm;
