@@ -13,7 +13,7 @@ function ActivitiesAccordion(props) {
 				user={props.user}
 				activity={activity}
 				onClick={handleClick}
-				showLocation
+				showImage={false}
 			></ActivityCard>
 		</ListGroup.Item>
 	));

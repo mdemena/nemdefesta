@@ -22,7 +22,7 @@ function CommentCard(props) {
 			<></>
 		);
 	return (
-		<Card className="bg-success text-white" border="success">
+		<Card className="cardElement" border="success">
 			<Card.Body>
 				<Card.Title>{element.title}</Card.Title>
 				<Card.Text>{element.description}</Card.Text>
@@ -33,7 +33,7 @@ function CommentCard(props) {
 					</small>
 				</Card.Text>
 			</Card.Body>
-			<Card.Footer>
+			<Card.Footer className="bg-success text-white">
 				<div className="d-flex flex-row justify-content-around align-items-center">
 					<Likes
 						type="comment"

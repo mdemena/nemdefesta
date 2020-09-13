@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Overlay, Badge } from 'react-bootstrap';
+import { Overlay, Badge, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { BsPeopleFill, BsPeople } from 'react-icons/bs';
 import EventService from '../../services/event/EventService';
 import ActivityService from '../../services/activity/ActivityService';
@@ -43,13 +43,23 @@ function PeopleIcon(props) {
 	);
 	return (
 		<div ref={ref}>
-			<div
-				className="d-flex flex-row justify-content-between align-items-center"
-				onClick={handleClick}
+			<OverlayTrigger
+				key={props.id}
+				placement="left"
+				overlay={
+					<Tooltip id={`tooltip-attendee`}>
+						<strong>Persones que assitiran</strong>.
+					</Tooltip>
+				}
 			>
-				{starIcon}
-				<Badge variant="light">{props.array.length}</Badge>
-			</div>
+				<div
+					className="d-flex flex-row justify-content-between align-items-center"
+					onClick={handleClick}
+				>
+					{starIcon}
+					<Badge variant="light">{props.array.length}</Badge>
+				</div>
+			</OverlayTrigger>
 			<Overlay
 				show={showInfo}
 				target={target}

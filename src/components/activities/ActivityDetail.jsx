@@ -39,6 +39,7 @@ function ActivityDetail(props) {
 				user={props.user}
 				activity={element}
 				onClick={handleClick}
+				showImage={false}
 				showLocation={false}
 			></ActivityCard>
 			<Accordion defaultActiveKey="1" className="mt-2">

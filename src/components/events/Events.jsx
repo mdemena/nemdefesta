@@ -64,25 +64,13 @@ function Events(props) {
 	}, []);
 
 	function getEvents(fromDate, toDate, searchText) {
-		dispatch({
-			type: 'loading',
+		EventService.search(fromDate, toDate, searchText).then((events) => {
+			dispatch({
+				type: 'field',
+				fieldName: 'events',
+				fieldValue: events,
+			});
 		});
-		EventService.search(fromDate, toDate, searchText)
-			.then((events) => {
-				dispatch({
-					type: 'field',
-					fieldName: 'events',
-					fieldValue: events,
-				});
-				dispatch({
-					type: 'notLoading',
-				});
-			})
-			.catch(() =>
-				dispatch({
-					type: 'notLoading',
-				})
-			);
 	}
 	const events = state.events.map((event) => (
 		<EventCard
@@ -90,7 +78,6 @@ function Events(props) {
 			key={event._id}
 			event={event}
 			onClick={handleClick}
-			showImage
 		/>
 	));
 	if (state.isLoading) {

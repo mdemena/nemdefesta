@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+//import { Modal, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 import { BsGeoAlt } from 'react-icons/bs';
 import MapCard from '../maps/MapCard';
@@ -10,12 +11,22 @@ function LocationIcon(props) {
 	};
 	return (
 		<div>
-			<div
-				className="d-flex flex-row justify-content-between align-items-center"
-				onClick={handleShow}
-			>
-				<BsGeoAlt />
-			</div>
+			{/* <OverlayTrigger
+				key={props.id}
+				placement="right"
+				overlay={
+					<Tooltip id={`tooltip-location`}>
+						<strong>On es celebra</strong>.
+					</Tooltip>
+				}
+			> */}
+				<div
+					className="d-flex flex-row justify-content-between align-items-center"
+					onClick={handleShow}
+				>
+					<BsGeoAlt />
+				</div>
+			{/* </OverlayTrigger> */}
 			<Modal show={showMap} onHide={handleShow} centered>
 				<Modal.Header closeButton>
 					<Modal.Title>{props.location.name}</Modal.Title>

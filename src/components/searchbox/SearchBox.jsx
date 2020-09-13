@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Col, InputGroup } from 'react-bootstrap';
+import { Form, Button, Col, InputGroup, Container } from 'react-bootstrap';
 import { FaSearch } from 'react-icons/fa';
 import dayjs from 'dayjs';
 require('dayjs/locale/es');
@@ -22,7 +22,7 @@ function SearchBox(props) {
 
 	return (
 		<Form inline onSubmit={handleSubmit} className="w-100">
-			<Form.Row className="align-items-center w-100">
+			{/* <Form.Row className="align-items-center w-100">
 				<Col>
 					<InputGroup>
 						<Form.Control
@@ -43,7 +43,7 @@ function SearchBox(props) {
 						</InputGroup.Append>
 					</InputGroup>
 				</Col>
-			</Form.Row>
+			</Form.Row> */}
 			<Form.Row className="align-items-center w-100 mt-2">
 				<Col>
 					<InputGroup>
@@ -78,6 +78,16 @@ function SearchBox(props) {
 					</InputGroup>
 				</Col>
 			</Form.Row>
+			<Container className="d-flex flex-row justify-content-center pt-2">
+				<Button
+					variant="success"
+					type="submit"
+					className="d-flex flex-row justify-content-around align-items-center w-50"
+				>
+					Cercar
+					<FaSearch />
+				</Button>
+			</Container>
 		</Form>
 	);
 }

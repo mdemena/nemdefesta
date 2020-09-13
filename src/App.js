@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'react-bootstrap';
 import { Switch, Route } from 'react-router-dom';
@@ -12,6 +12,7 @@ import ProfileSetup from './components/profile/ProfileSetup';
 import ProfileDetail from './components/profile/ProfileDetail';
 import EventDetail from './components/events/EventDetail';
 import Map from './components/maps/Map';
+import AuthService from './services/auth/AuthService';
 import './App.scss';
 import ActivityDetail from './components/activities/ActivityDetail';
 
@@ -21,10 +22,10 @@ const appReducer = (state, action = {}) => {
 	switch (action.type) {
 		case 'login':
 			const { user } = action;
-			sessionStorage.setItem('user', JSON.stringify(user));
+			localStorage.setItem('user', JSON.stringify(user));
 			return { user };
 		case 'logout':
-			sessionStorage.removeItem('user');
+			localStorage.removeItem('user');
 			return { user: null };
 		default:
 			return state;
@@ -32,11 +33,19 @@ const appReducer = (state, action = {}) => {
 };
 
 const initialState = {
-	user: JSON.parse(sessionStorage.getItem('user') || null),
+	user: JSON.parse(localStorage.getItem('user') || null),
 };
 
 function App() {
 	const [state, dispatch] = useReducer(appReducer, initialState);
+
+	useEffect(() => {
+		AuthService.loggedin()
+			.then((response) => {
+				if (!response) dispatch({ type: 'logout' });
+			})
+			.catch((err) => dispatch({ type: 'logout' }));
+	}, []);
 	const { user } = state;
 
 	return (

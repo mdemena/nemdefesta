@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, InfoWindow } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, InfoWindow } from '@react-google-maps/api';
 import EventInfoWindow from '../events/EventInfoWindow';
+import { Spinner } from 'react-bootstrap';
 
 function Map(props) {
 	const [center, setCenter] = useState({ lat: 0, lng: 0 });
+	const { isLoaded, loadError } = useLoadScript({
+		googleMapsApiKey: process.env.REACT_APP_GOOGLE_API_KEY,
+		googleMapsClientId: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+		language: 'es',
+	});
 	const points = JSON.parse(localStorage.getItem('events')) || [];
 
 	useEffect(() => {
@@ -41,26 +47,16 @@ function Map(props) {
 		height: '100%',
 		overflow: 'auto',
 	};
+	if (!isLoaded) {
+		return <Spinner variant="success" />;
+	}
+	if (loadError) {
+		return <div>El mapa no es pot carregar ara.</div>;
+	}
 	return (
-		<LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
-			<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
-				{/* <MarkerClusterer>
-					{(clusterer) =>
-						points.map((elem) => (
-							<Marker
-								key={elem._id}
-								position={{
-									lat: elem.location.gpsLocation.coordinates[0],
-									lng: elem.location.gpsLocation.coordinates[1],
-								}}
-								clusterer={clusterer}
-							/>
-						))
-					}
-				</MarkerClusterer> */}
-				{makers}
-			</GoogleMap>
-		</LoadScript>
+		<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={10}>
+			{makers}
+		</GoogleMap>
 	);
 }
 

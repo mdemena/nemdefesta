@@ -87,8 +87,8 @@ function Avatar(props) {
 				<Modal.Body>
 					<InputGroup className="mb-3">
 						<FormControl
-							id="imatge"
-							name="imatge"
+							id="image"
+							name="image"
 							type="file"
 							onChange={handleChange}
 							placeholder="Fitxer de la imatge"

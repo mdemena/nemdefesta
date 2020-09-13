@@ -8,7 +8,7 @@ import {
 	InputGroup,
 	Alert,
 } from 'react-bootstrap';
-import { FaGoogle } from 'react-icons/fa';
+// import { FaGoogle } from 'react-icons/fa';
 import AuthService from '../../../services/auth/AuthService';
 
 const loginReducer = (state, action) => {
@@ -98,12 +98,12 @@ function Login(props) {
 	return (
 		<Container fluid className="d-flex flex-column align-items-center">
 			<h3>Entra a Nem De Festa !!</h3>
-			<a href={AuthService.google()} className="btn btn-danger w-100">
+			{/* <a href={AuthService.google()} className="btn btn-danger w-100">
 				<span>
 					<FaGoogle />
 					&nbsp;&nbsp;Entra amb Google
 				</span>
-			</a>
+			</a> */}
 			<hr />
 			<Form onSubmit={handleFormSubmit} className="w-100">
 				<InputGroup className="mb-3">

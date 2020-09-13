@@ -1,5 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Popover, Overlay, Badge } from 'react-bootstrap';
+import {
+	Popover,
+	Overlay,
+	Badge,
+	OverlayTrigger,
+	Tooltip,
+} from 'react-bootstrap';
 import { AiFillDislike } from 'react-icons/ai';
 import EventService from '../../services/event/EventService';
 import ActivityService from '../../services/activity/ActivityService';
@@ -41,13 +47,23 @@ function DisLikeIcon(props) {
 	};
 	return (
 		<div ref={ref}>
-			<div
-				className="d-flex flex-row justify-content-between align-items-center"
-				onClick={handleClick}
+			<OverlayTrigger
+				key={props.id}
+				placement="right"
+				overlay={
+					<Tooltip id={`tooltip-unlike`}>
+						<strong>No m'agrada</strong>.
+					</Tooltip>
+				}
 			>
-				<AiFillDislike />
-				<Badge variant="light">{props.quantity}</Badge>
-			</div>
+				<div
+					className="d-flex flex-row justify-content-between align-items-center"
+					onClick={handleClick}
+				>
+					<AiFillDislike />
+					<Badge variant="light">{props.quantity}</Badge>
+				</div>
+			</OverlayTrigger>
 			<Overlay
 				show={showInfo}
 				target={target}

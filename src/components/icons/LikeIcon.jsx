@@ -1,5 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Popover, Overlay, Badge } from 'react-bootstrap';
+import {
+	Popover,
+	Overlay,
+	Badge,
+	OverlayTrigger,
+	Tooltip,
+} from 'react-bootstrap';
 import { AiFillLike } from 'react-icons/ai';
 import EventService from '../../services/event/EventService';
 import ActivityService from '../../services/activity/ActivityService';
@@ -41,14 +47,24 @@ function LikeIcon(props) {
 	};
 	return (
 		<div ref={ref}>
-			<div
-				className="d-flex flex-row justify-content-between align-items-center"
-				onClick={handleClick}
-				alt="M'agrada"
+			<OverlayTrigger
+				key={props.id}
+				placement="right"
+				overlay={
+					<Tooltip id={`tooltip-like`}>
+						<strong>M'agrada</strong>.
+					</Tooltip>
+				}
 			>
-				<AiFillLike />
-				<Badge variant="light">{props.quantity}</Badge>
-			</div>
+				<div
+					className="d-flex flex-row justify-content-between align-items-center"
+					onClick={handleClick}
+					alt="M'agrada"
+				>
+					<AiFillLike />
+					<Badge variant="light">{props.quantity}</Badge>
+				</div>
+			</OverlayTrigger>
 			<Overlay
 				show={showInfo}
 				target={target}

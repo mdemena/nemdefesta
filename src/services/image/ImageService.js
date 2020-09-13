@@ -12,8 +12,8 @@ export class ImageService {
 		const image = new FormData();
 		image.append('title', title);
 		image.append('description', description);
-		image.append('event', event);
-		image.append('activity', activity);
+		if (event) image.append('event', event);
+		if (activity) image.append('activity', activity);
 		image.append('image', file);
 
 		return this.service.post(`/`, image).then((response) => response.data);

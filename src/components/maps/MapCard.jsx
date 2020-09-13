@@ -8,6 +8,8 @@ const containerStyle = {
 	minHeight: '100%',
 	height: '300px',
 	overflow: 'auto',
+	border: '1px solid green',
+	borderRadius: '8px'
 };
 
 function MapCard(props) {
@@ -43,11 +45,9 @@ function MapCard(props) {
 		return <div>El mapa no es pot carregar ara.</div>;
 	}
 	return (
-		// <LoadScript googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY}>
 		<GoogleMap mapContainerStyle={containerStyle} center={center} zoom={zoom}>
 			{makers}
 		</GoogleMap>
-		// </LoadScript>
 	);
 }
 

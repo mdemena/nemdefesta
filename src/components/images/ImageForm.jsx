@@ -1,8 +1,8 @@
 import React, { useReducer } from 'react';
 import { Button, Form, FormControl, InputGroup, Alert } from 'react-bootstrap';
-import CommentService from '../../services/comment/CommentService';
+import ImageService from '../../services/image/ImageService';
 
-const commentReducer = (state, action) => {
+const imageReducer = (state, action) => {
 	switch (action.type) {
 		case 'field':
 			return { ...state, [action.fieldName]: action.fieldValue };
@@ -27,22 +27,27 @@ const commentReducer = (state, action) => {
 	}
 };
 
-function CommentForm(props) {
+function ImageForm(props) {
 	const initialState = {
 		title: '',
 		description: '',
-		user: props.user._id,
+		event: props.event,
+		activity: props.activity,
+		image: '',
 		showAlert: false,
 		alertMessages: [],
 		isLoading: false,
 	};
-	const [state, dispatch] = useReducer(commentReducer, initialState);
+	const [state, dispatch] = useReducer(imageReducer, initialState);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
 		dispatch({ type: 'field', fieldName: name, fieldValue: value });
 	};
-
+	const handleFileChange = (event) => {
+		const imageFile = event.target.files[0];
+		dispatch({ type: 'field', fieldName: 'image', fieldValue: imageFile });
+	};
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
 		dispatch({ type: 'resetAlert' });
@@ -54,11 +59,12 @@ function CommentForm(props) {
 		}
 		if (!state.showAlert) {
 			dispatch({ type: 'loading' });
-			CommentService.create(
+			ImageService.create(
 				state.title,
 				state.description,
-				props.event,
-				props.activity
+				state.event,
+				state.activity,
+				state.image
 			)
 				.then((response) => {
 					props.onClick();
@@ -95,7 +101,7 @@ function CommentForm(props) {
 			</InputGroup>
 			<InputGroup className="mb-3">
 				<InputGroup.Prepend>
-					<InputGroup.Text id="description-text">Comentari</InputGroup.Text>
+					<InputGroup.Text id="description-text">Descripció</InputGroup.Text>
 				</InputGroup.Prepend>
 				<FormControl
 					id="description"
@@ -103,9 +109,23 @@ function CommentForm(props) {
 					type="textarea"
 					value={state.description}
 					onChange={handleChange}
-					placeholder="Comentari"
-					aria-label="Comentari"
+					placeholder="Descripció"
+					aria-label="Descripció"
 					aria-describedby="description-text"
+				/>
+			</InputGroup>
+			<InputGroup className="mb-3">
+				<InputGroup.Prepend>
+					<InputGroup.Text id="image-text">Fitxer</InputGroup.Text>
+				</InputGroup.Prepend>
+				<FormControl
+					id="image"
+					name="image"
+					type="file"
+					onChange={handleFileChange}
+					placeholder="Fitxer"
+					aria-label="Fitxer"
+					aria-describedby="image-text"
 				/>
 			</InputGroup>
 			<Button
@@ -129,4 +149,4 @@ function CommentForm(props) {
 	);
 }
 
-export default CommentForm;
+export default ImageForm;

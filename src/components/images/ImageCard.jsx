@@ -20,11 +20,11 @@ function ImageCard(props) {
 		);
 
 	return (
-		<Card className="bg-success text-white" border="success">
+		<Card className="cardElement" border="success">
 			<Card.Body>
 				<Card.Title>{element.title}</Card.Title>
 				<Card.Img src={element.image} alt={element.title} />
-				<Card.Text>{element.description}</Card.Text>
+				<Card.Text className="pt-2">{element.description}</Card.Text>
 				<Card.Text>
 					<small>
 						Publicada el {dayjs(element.createAt).format('DD-MM-YYYY')} a les{' '}
@@ -32,7 +32,7 @@ function ImageCard(props) {
 					</small>
 				</Card.Text>
 			</Card.Body>
-			<Card.Footer>
+			<Card.Footer className="bg-success text-white">
 				<div className="d-flex flex-row justify-content-around align-items-center">
 					<LikeIcon
 						type="image"
