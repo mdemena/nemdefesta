@@ -1,0 +1,44 @@
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.fill-window {
+	height: 100%;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	overflow: hidden;
+	padding-top: 70px;
+}
+.avatar {
+	width: 150px;
+	height: 150px;
+}
+.avatarMenu {
+	width: 25px;
+	height: 25px;
+}
+.cardEvent{
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	color:white;
+}
+.cardElement{
+	background: lightgreen;
+	color:green;
+}
+@media screen and (max-width: 600px) {
+	.inputRow {
+		margin-top: 0.5rem;
+	}
+}
