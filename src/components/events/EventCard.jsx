@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import LikeIcon from '../icons/LikeIcon';
 import DisLikeIcon from '../icons/DisLikeIcon';
-import StarIcon from '../icons/StarIcon';
+import PeopleIcon from '../icons/PeopleIcon';
 import CommentIcon from '../comments/CommentIcon';
 import dayjs from 'dayjs';
 require('dayjs/locale/es');
@@ -64,7 +64,7 @@ function EventCard(props) {
 						user={props.user}
 						onClick={handleClick}
 					/>
-					<StarIcon
+					<PeopleIcon
 						type="event"
 						id={element._id}
 						array={element.attendees}

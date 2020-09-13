@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Overlay, Popover, Badge } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { AiFillLike, AiFillAlert } from 'react-icons/ai';
+import { Popover, Overlay, Badge } from 'react-bootstrap';
+import { AiFillLike } from 'react-icons/ai';
 import EventService from '../../services/event/EventService';
 import ActivityService from '../../services/activity/ActivityService';
 import CommentService from '../../services/comment/CommentService';
 import ImageService from '../../services/image/ImageService';
+import PopOverNoLogged from '../popovers/PopOverNoLogged';
 
 function LikeIcon(props) {
 	const [showInfo, setShowInfo] = useState(false);
@@ -59,14 +59,7 @@ function LikeIcon(props) {
 				onHide={handleClose}
 			>
 				<Popover id="popover-contained">
-					<Popover.Title as="h3" className="bg-warning">
-						<AiFillAlert className="rounded mr-2" />
-						<strong className="mr-auto">¡¡¡ No estàs autenticat !!!</strong>
-					</Popover.Title>
-					<Popover.Content>
-						Pots <Link to="/login">accedir</Link> o{' '}
-						<Link to="/signup">registrar-te</Link>
-					</Popover.Content>
+					<PopOverNoLogged />
 				</Popover>
 			</Overlay>
 		</div>

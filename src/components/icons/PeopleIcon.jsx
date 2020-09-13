@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { Overlay, Popover, Badge } from 'react-bootstrap';
-import { AiFillStar, AiOutlineStar, AiFillAlert } from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Overlay, Badge } from 'react-bootstrap';
+import { BsPeopleFill, BsPeople } from 'react-icons/bs';
 import EventService from '../../services/event/EventService';
 import ActivityService from '../../services/activity/ActivityService';
+import PopOverNoLogged from '../popovers/PopOverNoLogged';
+import { Popover } from 'react-bootstrap';
 
-function StarIcon(props) {
+function PeopleIcon(props) {
 	const [showInfo, setShowInfo] = useState(false);
 	const [target, setTarget] = useState(null);
 	const ref = useRef(null);
@@ -33,12 +34,12 @@ function StarIcon(props) {
 	};
 	const starIcon = props.user ? (
 		props.array.includes(props.user._id) ? (
-			<AiFillStar />
+			<BsPeopleFill />
 		) : (
-			<AiOutlineStar />
+			<BsPeople />
 		)
 	) : (
-		<AiOutlineStar />
+		<BsPeople />
 	);
 	return (
 		<div ref={ref}>
@@ -59,18 +60,11 @@ function StarIcon(props) {
 				onHide={handleClose}
 			>
 				<Popover id="popover-contained">
-					<Popover.Title as="h3" className="bg-warning">
-						<AiFillAlert className="rounded mr-2" />
-						<strong className="mr-auto">¡¡¡ No estàs autenticat !!!</strong>
-					</Popover.Title>
-					<Popover.Content>
-						Pots <Link to="/login">accedir</Link> o{' '}
-						<Link to="/signup">registrar-te</Link>
-					</Popover.Content>
+					<PopOverNoLogged />
 				</Popover>
 			</Overlay>
 		</div>
 	);
 }
 
-export default StarIcon;
+export default PeopleIcon;

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
 import LikeIcon from '../icons/LikeIcon';
 import DisLikeIcon from '../icons/DisLikeIcon';
-import StarIcon from '../icons/StarIcon';
+import PeopleIcon from '../icons/PeopleIcon';
 import CommentIcon from '../comments/CommentIcon';
 import LocationIcon from '../locations/LocationIcon';
 import dayjs from 'dayjs';
@@ -69,7 +69,7 @@ function ActivityCard(props) {
 						user={props.user}
 						onClick={handleClick}
 					/>
-					<StarIcon
+					<PeopleIcon
 						type="activity"
 						id={element._id}
 						array={element.attendees}

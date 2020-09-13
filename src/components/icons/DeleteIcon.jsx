@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import { AiTwotoneDelete } from 'react-icons/ai';
 import EventService from '../../services/event/EventService';
 import ActivityService from '../../services/activity/ActivityService';

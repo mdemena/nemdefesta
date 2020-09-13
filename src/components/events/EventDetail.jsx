@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Accordion, Card, ListGroup } from 'react-bootstrap';
 import EventService from '../../services/event/EventService';
-import CommentCard from '../comments/CommentCard';
 import ActivityCard from '../activities/ActivityCard';
-import ImageCard from '../images/ImageCard';
+import ImagesAccordion from '../images/ImagesAccordion';
 import MapCard from '../maps/MapCard';
 import EventCard from './EventCard';
-import { BiCommentDetail } from 'react-icons/bi';
-import { BsGeo, BsImages } from 'react-icons/bs';
+import { BsGeo } from 'react-icons/bs';
 import { MdLocalActivity } from 'react-icons/md';
+import CommentsAccordion from '../comments/CommentsAccordion';
 
 const initialState = {
 	location: { gpsLocation: { coordinates: [0, 0] } },
@@ -52,24 +51,6 @@ function EventDetail(props) {
 		lat: element.location.gpsLocation.coordinates[0],
 		lng: element.location.gpsLocation.coordinates[1],
 	};
-	const comments = element.comments.map((comment) => (
-		<ListGroup.Item key={comment._id} className="pl-0 pr-0">
-			<CommentCard
-				user={props.user}
-				comment={comment}
-				onClick={handleClick}
-			></CommentCard>
-		</ListGroup.Item>
-	));
-	const images = element.images.map((image) => (
-		<ListGroup.Item key={image._id} className="pl-0 pr-0">
-			<ImageCard
-				user={props.user}
-				image={image}
-				onClick={handleClick}
-			></ImageCard>
-		</ListGroup.Item>
-	));
 
 	return (
 		<>
@@ -110,32 +91,20 @@ function EventDetail(props) {
 						</Card.Body>
 					</Accordion.Collapse>
 				</Card>
-				<Card>
-					<Accordion.Toggle as={Card.Header} eventKey="2">
-						<div className="d-flex flex-row justify-content-between align-items-center">
-							{element.comments.length} Comentaris
-							<BiCommentDetail size="20px" />
-						</div>
-					</Accordion.Toggle>
-					<Accordion.Collapse eventKey="2">
-						<Card.Body>
-							<ListGroup variant="flush">{comments}</ListGroup>
-						</Card.Body>
-					</Accordion.Collapse>
-				</Card>
-				<Card>
-					<Accordion.Toggle as={Card.Header} eventKey="3">
-						<div className="d-flex flex-row justify-content-between align-items-center">
-							{element.images.length} Imatges
-							<BsImages size="20px" />
-						</div>
-					</Accordion.Toggle>
-					<Accordion.Collapse eventKey="3">
-						<Card.Body>
-							<ListGroup variant="flush">{images}</ListGroup>
-						</Card.Body>
-					</Accordion.Collapse>
-				</Card>
+				<CommentsAccordion
+					comments={element.comments}
+					user={props.user}
+					event={element._id}
+					eventKey={2}
+					onClick={handleClick}
+				/>
+				<ImagesAccordion
+					images={element.images}
+					user={props.user}
+					event={element._id}
+					eventKey={3}
+					onClick={handleClick}
+				/>
 			</Accordion>
 		</>
 	);
