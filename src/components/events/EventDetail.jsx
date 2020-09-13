@@ -43,7 +43,7 @@ function EventDetail(props) {
 				showImage={false}
 				onClick={handleClick}
 			/>
-			<Accordion defaultActiveKey="0" className="mt-2">
+			<Accordion className="mt-2">
 				<ActivitiesAccordion
 					activities={element.activities}
 					user={props.user}

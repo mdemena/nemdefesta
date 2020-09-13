@@ -42,7 +42,7 @@ function ActivityDetail(props) {
 				showImage={false}
 				showLocation={false}
 			></ActivityCard>
-			<Accordion className="mt-2">
+			<Accordion defaultActiveKey="1" className="mt-2">
 				<MapAccordion
 					title="On es celebra?"
 					locations={[element.location]}
