@@ -15,6 +15,9 @@ function SearchBox(props) {
 	const handleChange = (event) => {
 		setSearch({ ...search, [event.target.name]: event.target.value });
 	};
+	const handleDateChange = (value, formattedValue) => {
+		setSearch({ ...search, fromDate: value });
+	};
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		props.onChange(search);

@@ -50,9 +50,12 @@ function CommentForm(props) {
 			dispatch({ type: 'alert', alertMessage: `Has d'indicar un títol` });
 		}
 		if (!state.description) {
-			dispatch({ type: 'alert', alertMessage: `Has d'introduir un comentari` });
+			dispatch({
+				type: 'alert',
+				alertMessage: `Has d'introduir un comentari`,
+			});
 		}
-		if (!state.showAlert) {
+		if (state.alertMessages.length === 0) {
 			dispatch({ type: 'loading' });
 			CommentService.create(
 				state.title,
@@ -70,7 +73,6 @@ function CommentForm(props) {
 					})
 				);
 			dispatch({ type: 'notLoading' });
-			props.onClick();
 		}
 	};
 	const errorsMessage = state.alertMessages.map((err, index) => (
@@ -100,7 +102,7 @@ function CommentForm(props) {
 				<FormControl
 					id="description"
 					name="description"
-					type="textarea"
+					as="textarea"
 					value={state.description}
 					onChange={handleChange}
 					placeholder="Comentari"

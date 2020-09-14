@@ -1,5 +1,12 @@
 import React, { useReducer } from 'react';
-import { Button, Form, FormControl, InputGroup, Alert } from 'react-bootstrap';
+import {
+	Button,
+	Form,
+	FormControl,
+	InputGroup,
+	Alert,
+	FormFile,
+} from 'react-bootstrap';
 import ImageService from '../../services/image/ImageService';
 
 const imageReducer = (state, action) => {
@@ -33,7 +40,7 @@ function ImageForm(props) {
 		description: '',
 		event: props.event,
 		activity: props.activity,
-		image: '',
+		image: undefined,
 		showAlert: false,
 		alertMessages: [],
 		isLoading: false,
@@ -48,14 +55,20 @@ function ImageForm(props) {
 		const imageFile = event.target.files[0];
 		dispatch({ type: 'field', fieldName: 'image', fieldValue: imageFile });
 	};
-	const handleFormSubmit = async (event) => {
+	const handleFormSubmit = (event) => {
 		event.preventDefault();
 		dispatch({ type: 'resetAlert' });
 		if (!state.title) {
 			dispatch({ type: 'alert', alertMessage: `Has d'indicar un títol` });
 		}
 		if (!state.description) {
-			dispatch({ type: 'alert', alertMessage: `Has d'introduir un comentari` });
+			dispatch({
+				type: 'alert',
+				alertMessage: `Has d'introduir una descripció`,
+			});
+		}
+		if (!state.image) {
+			dispatch({ type: 'alert', alertMessage: `Has d'inidcar una imatge` });
 		}
 		if (!state.showAlert) {
 			dispatch({ type: 'loading' });
@@ -76,7 +89,6 @@ function ImageForm(props) {
 					})
 				);
 			dispatch({ type: 'notLoading' });
-			props.onClick();
 		}
 	};
 	const errorsMessage = state.alertMessages.map((err, index) => (
@@ -106,7 +118,7 @@ function ImageForm(props) {
 				<FormControl
 					id="description"
 					name="description"
-					type="textarea"
+					as="textarea"
 					value={state.description}
 					onChange={handleChange}
 					placeholder="Descripció"
@@ -114,24 +126,24 @@ function ImageForm(props) {
 					aria-describedby="description-text"
 				/>
 			</InputGroup>
-			<div className="input-group mb-3">
-				<div className="input-group-prepend">
-					<span className="input-group-text" id="label-imatge">
-						Fitxer
-					</span>
-				</div>
-				<div className="custom-file">
-					<input
-						type="file"
-						id="image"
-						aria-describedby="label-imatge"
-						onChange={handleFileChange}
-					/>
-					<label className="custom-file-label" htmlFor="image">
-						Seleccciona ...
-					</label>
-				</div>
-			</div>
+			<InputGroup className="mb-3">
+				<InputGroup.Prepend>
+					<InputGroup.Text id="image-text">Imatge</InputGroup.Text>
+				</InputGroup.Prepend>
+				<FormFile
+					id="image"
+					name="image"
+					type="file"
+					label="Indica la imatge"
+					onChange={handleChange}
+					placeholder="Imatge"
+					aria-label="Imatge"
+					aria-describedby="image-text"
+					data-browse="Examinar"
+					onChange={handleFileChange}
+					custom
+				/>
+			</InputGroup>
 			<Button
 				type="submit"
 				className="btn btn-success w-100"

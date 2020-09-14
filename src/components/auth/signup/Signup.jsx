@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useState, useReducer } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import {
 	Container,
@@ -48,9 +48,10 @@ const initialState = {
 
 function Signup(props) {
 	const [state, dispatch] = useReducer(signupReducer, initialState);
+	const [signup, setSignup] = useState(initialState);
 
 	const validEmailRegex = RegExp(
-		/^(([^<>()[].,;:s@"]+(.[^<>()[].,;:s@"]+)*)|(".+"))@(([^<>()[].,;:s@"]+.)+[^<>()[].,;:s@"]{2,})$/i
+		/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i
 	);
 
 	const history = useHistory();
@@ -62,50 +63,52 @@ function Signup(props) {
 
 	const handleFormSubmit = async (event) => {
 		event.preventDefault();
-		dispatch({ type: 'resetAlert' });
+		await dispatch({ type: 'resetAlert' });
 		if (!state.name) {
-			dispatch({ type: 'alert', alertMessage: `Has d'indicar un nom` });
+			await dispatch({ type: 'alert', alertMessage: `Has d'indicar un nom` });
 		}
 		if (!state.username) {
-			dispatch({ type: 'alert', alertMessage: `Has d'indicar un usuari` });
+			await dispatch({
+				type: 'alert',
+				alertMessage: `Has d'indicar un usuari`,
+			});
 		} else {
 			const status = await AuthService.checkusername(state.username);
 			if (status === 200)
-				dispatch({
+				await dispatch({
 					type: 'alert',
 					alertMessage: `L'usuari ${state.username} ja existeix, escull un altre`,
 				});
 		}
 		if (!state.email) {
-			dispatch({ type: 'alert', alertMessage: `Has d'indicar un email` });
+			await dispatch({ type: 'alert', alertMessage: `Has d'indicar un email` });
 		} else {
 			const status = await AuthService.checkemail(state.email);
 			if (status === 200)
-				dispatch({
+				await dispatch({
 					type: 'alert',
 					alertMessage: `L'email ${state.email} ja existeix, escull un altre`,
 				});
 		}
 		if (!validEmailRegex.test(state.email)) {
-			dispatch({
+			await dispatch({
 				type: 'alert',
 				alertMessage: `El format del email és incorrecte`,
 			});
 		}
 		if (!state.password) {
-			dispatch({
+			await dispatch({
 				type: 'alert',
 				alertMessage: `Has d'indicar una clau d'accés`,
 			});
 		}
 		if (state.password.length < 8) {
-			dispatch({
+			await dispatch({
 				type: 'alert',
 				alertMessage: `La clau d'accés ha de tenir un minim de 8 caràcters`,
 			});
 		}
-		if (!state.showAlert) {
-			dispatch({ type: 'loading' });
+		if (state.alertMessages.length === 0) {
 			AuthService.signup(
 				state.username,
 				state.name,
@@ -116,13 +119,12 @@ function Signup(props) {
 					props.dispatch({ type: 'login', user: response });
 					history.push('/');
 				})
-				.catch((error) =>
+				.catch((err) => {
 					dispatch({
 						type: 'alert',
-						alertMessage: error.response.data.message,
-					})
-				);
-			dispatch({ type: 'notLoading' });
+						alertMessage: err.message,
+					});
+				});
 		}
 	};
 	const errorsMessage = state.alertMessages.map((err, index) => (
