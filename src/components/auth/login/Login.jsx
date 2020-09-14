@@ -22,7 +22,6 @@ const loginReducer = (state, action) => {
 				...state,
 				showAlert: true,
 				alertMessages: alertMessages,
-				isLoading: false,
 			};
 		case 'resetAlert':
 			return {
@@ -62,7 +61,10 @@ function Login(props) {
 		event.preventDefault();
 		dispatch({ type: 'resetAlert' });
 		if (!state.username) {
-			dispatch({ type: 'alert', alertMessage: `Has d'indicar un usuari` });
+			dispatch({
+				type: 'alert',
+				alertMessage: `Has d'indicar un usuari`,
+			});
 		}
 		if (!state.password) {
 			dispatch({
@@ -76,17 +78,16 @@ function Login(props) {
 				alertMessage: `La clau d'accés ha de tenir un minim de 8 caràcters`,
 			});
 		}
-		if (!state.showAlert) {
-			dispatch({ type: 'login' });
+		if (state.alertMessages.length === 0) {
 			AuthService.login(state.username, state.password)
 				.then((response) => {
 					props.dispatch({ type: 'login', user: response });
 					history.push('/');
 				})
-				.catch((error) =>
+				.catch((err) =>
 					dispatch({
 						type: 'alert',
-						alertMessage: error.response.data.message,
+						alertMessage: err.message,
 					})
 				);
 		}

@@ -45,6 +45,7 @@ function ProfileDetail(props) {
 	const activityList = activities.map((activity) => (
 		<ListGroup.Item key={activity._id} className="pl-0 pr-0">
 			<ActivityCard
+				key={activity._id}
 				user={props.user}
 				activity={activity}
 				onClick={handleClick}
@@ -55,6 +56,7 @@ function ProfileDetail(props) {
 	const commentList = comments.map((comment) => (
 		<ListGroup.Item key={comment._id} className="pl-0 pr-0">
 			<CommentCard
+				key={comment._id}
 				user={props.user}
 				comment={comment}
 				onClick={handleClick}
@@ -64,6 +66,7 @@ function ProfileDetail(props) {
 	const imageList = images.map((image) => (
 		<ListGroup.Item key={image._id} className="pl-0 pr-0">
 			<ImageCard
+				key={image._id}
 				user={props.user}
 				image={image}
 				onClick={handleClick}

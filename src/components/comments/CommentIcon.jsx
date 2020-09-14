@@ -20,6 +20,7 @@ function CommentIcon(props) {
 	const comments = props.array.map((comment) => (
 		<ListGroup.Item key={comment._id} className="pl-0 pr-0">
 			<CommentCard
+				key={comment._id}
 				user={props.user}
 				comment={comment}
 				onClick={handleClick}
