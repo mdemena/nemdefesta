@@ -59,296 +59,60 @@ Push Notifications:
 
 ## Routes
 
-| Method | URL              | Description                                             |
-| ------ | ---------------- | ------------------------------------------------------- |
-| GET    | /api/auth/google | Return User data if user logged in using Google Account |
-| POST   | /api/auth/login  | Return User data if user logged in                      |
-
-```
-body:
-    - email
-    - password
-```
-
-| Method | URL              | Description                                     |
-| ------ | ---------------- | ----------------------------------------------- |
-| POST   | /api/auth/logout | Logout.                                         |
-| POST   | /api/auth/signup | Add user and return user data if user signup in |
-
-```
-body:
-    - email
-    - name
-    - password
-```
-
-| Method | URL        | Description           |
-| ------ | ---------- | --------------------- |
-| GET    | /api/user/ | Return User data      |
-| DELETE | /api/user/ | Delete User           |
-| PUT    | /api/user/ | Update User data info |
-
-```
-body:
-    - email
-    - name
-```
-
-| Method | URL              | Description       |
-| ------ | ---------------- | ----------------- |
-| PATCH  | /api/user/upload | Update User image |
-
-```
-body:
-    - image
-```
-
-| Method | URL                     | Description                         |
-| ------ | ----------------------- | ----------------------------------- |
-| POST   | /api/user/checkusername | Check if username exist in database |
+| Method | URL    | Description                      |
+| ------ | ------ | -------------------------------- |
+| GET    | /login | Renders Login Components         |
+| POST   | /login | Redirect to / is user logged in. |
 
 ```
 body:
     - username
+    - password
 ```
 
-| Method | URL                  | Description                      |
-| ------ | -------------------- | -------------------------------- |
-| POST   | /api/user/checkemail | Check if email exist in database |
+| Method | URL     | Description                                 |
+| ------ | ------- | ------------------------------------------- |
+| GET    | /signup | Renders Signup Component.                   |
+| POST   | /signup | Redirect to / is user signed and logged in. |
 
 ```
 body:
+    - name
     - email
+    - username
+    - password
 ```
 
-| Method | URL          | Description                            |
-| ------ | ------------ | -------------------------------------- |
-| POST   | /api/events/ | Return events list match filter params |
-
-```
-body:
-    - fromDate
-    - toDate
-    - longitude
-    - lalitude
-    - distance
-    - searchText
-```
-
-| Method | URL              | Description                                                  |
-| ------ | ---------------- | ------------------------------------------------------------ |
-| GET    | /api/events/:id  | Return event details: Event data, activities, comments, etc. |
-| POST   | /api/events/add/ | Create a new event and return event details: Event data      |
-
-```
-body:
-    - name
-    - description
-    - from
-    - to
-    - image
-    - location
-```
-
-| Method | URL             | Description                                                              |
-| ------ | --------------- | ------------------------------------------------------------------------ |
-| DELETE | /api/events/:id | Delete event and all info related, then return event details: Event data |
-| PUT    | /api/events/:id | Update event info and return event details: Event data                   |
-
-```
-body:
-    - name
-    - description
-    - from
-    - to
-    - location
-```
-
-| Method | URL                    | Description        |
-| ------ | ---------------------- | ------------------ |
-| PATCH  | /api/events/upload/:id | Update event image |
-
-```
-body:
-    - image
-```
-
-| Method | URL                   | Description                             |
-| ------ | --------------------- | --------------------------------------- |
-| PATCH  | /api/events/image/:id | Add an image to image list for an event |
-
-```
-body:
-    - title
-    - description
-    - image
-```
-
-| Method | URL                      | Description                                                                  |
-| ------ | ------------------------ | ---------------------------------------------------------------------------- |
-| PATCH  | /api/events/like/:id     | Add a like to event                                                          |
-| PATCH  | /api/events/unlike/:id   | Add a unlike to event                                                        |
-| PATCH  | /api/events/attendee/:id | Add an user to event assist list                                             |
-| GET    | /api/locations/          | Return a location list.                                                      |
-| GET    | /api/locations/:id       | Return location details: Location data, etc.                                 |
-| GET    | /api/locations/event/:id | Return a loaction list for an Event.                                         |
-| POST   | /api/locations/          | Create a new location event and return location event details: Location data |
-
-```
-body:
-    - name
-    - address
-    - formatted_address
-    - lat
-    - lng
-    - event
-```
-
-| Method | URL                | Description                                                     |
-| ------ | ------------------ | --------------------------------------------------------------- |
-| DELETE | /api/locations/:id | Delete location, then return location details: Location data    |
-| PUT    | /api/locations/:id | Update location info and return location details: Location data |
-
-```
-body:
-    - name
-    - address
-    - formatted_address
-    - lat
-    - lng
-```
-
-| Method | URL              | Description                                |
-| ------ | ---------------- | ------------------------------------------ |
-| POST   | /api/activities/ | Return activities list match filter params |
+| Method | URL | Description                               |
+| ------ | --- | ----------------------------------------- |
+| GET    | /   | Renders Events Component                  |
+| POST   | /   | Renders Events Component apliying filters |
 
 ```
 body:
     - fromDate
     - toDate
-    - longitude
-    - lalitude
-    - distance
-    - searchText
 ```
 
-| Method | URL                       | Description                                                                 |
-| ------ | ------------------------- | --------------------------------------------------------------------------- |
-| GET    | /api/activities/event/:id | Return activities list from an eventid put in params.                       |
-| GET    | /api/activities/:id       | Return activity details: Activity data, comments, etc.                      |
-| POST   | /api/activities/add/:id   | Create a new activity in a event and return activity details: Activity data |
+| Method | URL      | Description                                                          |
+| ------ | -------- | -------------------------------------------------------------------- |
+| GET    | /events  | Renders Events Component                                             |
+| GET    | /map     | Render Map Component                                                 |
+| GET    | /profile | Redirects to / if user not logged in. Renders ProfileSetup Component |
+| POST   | /profile | Redirects to / if user not logged in. Renders ProfileSetup Component |
 
 ```
 body:
     - name
-    - description
-    - from
-    - to
-    - image
-    - location
+    - email
+    - username
 ```
 
-| Method | URL                 | Description                                                                       |
-| ------ | ------------------- | --------------------------------------------------------------------------------- |
-| DELETE | /api/activities/:id | Delete activity and all info related, then return activity details: Activity data |
-| PUT    | /api/activities/:id | Update activity info and return activity details: Activity data                   |
-
-```
-body:
-    - name
-    - description
-    - from
-    - to
-    - location
-```
-
-| Method | URL                      | Description           |
-| ------ | ------------------------ | --------------------- |
-| PATCH  | /api/activity/upload/:id | Update activity image |
-
-```
-body:
-    - image
-```
-
-| Method | URL                     | Description                                |
-| ------ | ----------------------- | ------------------------------------------ |
-| PATCH  | /api/activity/image/:id | Add an image to image list for an activity |
-
-```
-body:
-    - title
-    - description
-    - image
-```
-
-| Method | URL                      | Description                         |
-| ------ | ------------------------ | ----------------------------------- |
-| PATCH  | /api/activity/like/:id   | Add a like to event                 |
-| PATCH  | /api/activity/unlike/:id | Add an unlike to event              |
-| PATCH  | /api/activity/assist/:id | Add an activity to user assist list |
-
-| Method | URL                        | Description                                                                           |
-| ------ | -------------------------- | ------------------------------------------------------------------------------------- |
-| GET    | /api/comments              | Return comments list.                                                                 |
-| GET    | /api/comments/event/:id    | Return comments list from an event.                                                   |
-| GET    | /api/comments/activity/:id | Return comments list from an activity.                                                |
-| GET    | /api/comments/:id          | Return comment details: Comment data, likes, etc.                                     |
-| POST   | /api/comments/:id          | Create a new activity in a event or activity and return comment details: Comment data |
-
-```
-body:
-    - title
-    - description
-    - event
-    - activity
-```
-
-| Method | URL               | Description                                                   |
-| ------ | ----------------- | ------------------------------------------------------------- |
-| DELETE | /api/comments/:id | Delete comment, then return comments details: Comments data   |
-| PUT    | /api/comments/:id | Update comments info and return comment details: Comment data |
-
-```
-body:
-    - title
-    - description
-```
-
-| Method | URL                      | Description                                                                        |
-| ------ | ------------------------ | ---------------------------------------------------------------------------------- |
-| PATCH  | /api/comment/like/:id    | Add a like to comment                                                              |
-| PATCH  | /api/comment/unlike/:id  | Add an unlike to comment                                                           |
-| GET    | /api/images              | Return images list.                                                                |
-| GET    | /api/images/event/:id    | Return images list from an event.                                                  |
-| GET    | /api/images/activity/:id | Return images list from an activity.                                               |
-| GET    | /api/images/:id          | Return image details: Image data, likes, etc.                                      |
-| POST   | /api/images/:id          | Create a new image in a event or activity and return comment details: Comment data |
-
-```
-body:
-    - title
-    - description
-    - image
-    - event
-    - activity
-```
-
-| Method | URL             | Description                                            |
-| ------ | --------------- | ------------------------------------------------------ |
-| DELETE | /api/images/:id | Delete image, then return imge details: Image data     |
-| PUT    | /api/images/:id | Update image info and return image details: Image data |
-
-```
-body:
-    - title
-    - description
-```
-
-| Method | URL                   | Description            |
-| ------ | --------------------- | ---------------------- |
-| PATCH  | /api/image/like/:id   | Add a like to image    |
-| PATCH  | /api/image/unlike/:id | Add an unlike to image |
+| Method | URL             | Description                      |
+| ------ | --------------- | -------------------------------- |
+| GET    | /profile/:id    | Renders ProfileDetail Component  |
+| GET    | /events/:id     | Renders EventDetail Component    |
+| GET    | /activities/:id | Renders ActivityDetail Component |
 
 ## Models
 
@@ -370,11 +134,11 @@ Event model
 - to: Date
 - image: String
 - location:
-    - name: String
-    - address: String
-    - formatted_address: String
-    - lat: Number
-    - lng: Number
+  - name: String
+  - address: String
+  - formatted_address: String
+  - lat: Number
+  - lng: Number
 - locations: Array of Location id
 - images: Array of String
 - likes: Array of User id
@@ -451,14 +215,14 @@ Image model
 
 ### DEV Environment
 
-[App Deploy Link]('https://dev.nemdefesta.cat/')
-[Server Deploy Link]('https://server-dev.nemdefesta.cat/')
+[App Deploy Link](http://dev.nemdefesta.cat/)
+[Server Deploy Link](http://server-dev.nemdefesta.cat/)
 
 ### PRO Environment
 
-[App Deploy Link]('https://www.nemdefesta.cat/')
-[Server Deploy Link]('https://server.nemdefesta.cat/')
+[App Deploy Link](https://www.nemdefesta.cat/)
+[Server Deploy Link](https://server.nemdefesta.cat/)
 
 ### Slides
 
-[Slides Link](http://slides.com)
+[Slides Link](https://docs.google.com/presentation/d/1TFT4MVaS1SrD95ApnqPSXj-ORZGGYm_g8NZiNooRmpg/edit?usp=sharing)
