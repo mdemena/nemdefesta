@@ -117,21 +117,16 @@ body:
 ## Models
 
 ```
-
 User model
-
 - username: String
 - email: String
 - name: String
 - password: String
 - image: String
-
 ```
 
 ```
-
 Event model
-
 - name: String
 - description: String
 - type: String
@@ -151,26 +146,20 @@ Event model
 - assistants: Array of User id
 - comments: Array of Comment id
 - user: User id
-
 ```
 
 ```
-
 Location model
-
 - name: String
 - address: String
 - formatted_address: String
 - lat: Number
 - lng: Number
 - event: Event id
-
 ```
 
 ```
-
 Activity model
-
 - name: String
 - description: String
 - type: String
@@ -184,13 +173,10 @@ Activity model
 - assistants: Array of User id
 - comments: Array of Comment id
 - event: Event id
-
 ```
 
 ```
-
 Comment model
-
 - title: String
 - description: String
 - likes: Array of User id,
@@ -198,13 +184,10 @@ Comment model
 - event: Event Id
 - activity: Activity Id
 - user: User Id
-
 ```
 
 ```
-
 Image model
-
 - title: String
 - description: String
 - image: String
@@ -213,7 +196,6 @@ Image model
 - event: Event Id
 - activity: Activity Id
 - user: User Id
-
 ```
 
 ## Links
