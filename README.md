@@ -210,17 +210,17 @@ Image model
 
 ### Git
 
-[App Repository Link](https://github.com/mdemena/nemdefesta)
+[App Repository Link](https://github.com/mdemena/nemdefesta)  
 [Server Repository Link](https://github.com/mdemena/nemdefesta-server)
 
 ### DEV Environment
 
-[App Deploy Link](http://dev.nemdefesta.cat/)
+[App Deploy Link](http://dev.nemdefesta.cat/)  
 [Server Deploy Link](http://server-dev.nemdefesta.cat/)
 
 ### PRO Environment
 
-[App Deploy Link](https://www.nemdefesta.cat/)
+[App Deploy Link](https://www.nemdefesta.cat/)  
 [Server Deploy Link](https://server.nemdefesta.cat/)
 
 ### Slides
