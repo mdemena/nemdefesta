@@ -210,7 +210,7 @@ Image model
 
 ### Git
 
-[App Repository Link](https://github.com/mdemena/nemdefesta)
+[App Repository Link](https://github.com/mdemena/nemdefesta)  
 [Server Repository Link](https://github.com/mdemena/nemdefesta-server)
 
 ### DEV Environment
